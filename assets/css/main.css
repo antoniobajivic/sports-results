@@ -1,0 +1,2 @@
+/*Define 1rem is now 10px instead of 16px*/
+html { font-size: 10px; }

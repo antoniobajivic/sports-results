@@ -1,5 +1,5 @@
 <template>
-  <div class="team__card">
+  <div class="team_card">
     <h1>{{ teamName }}</h1>
     <ul ref="Player">
       <slot />

@@ -1,11 +1,11 @@
 <template>
-  <div>
+  <div class="w-5/6 mx-auto">
     <h1>
-      Welcome <span>{{ loggedInUser.user.username }}</span>
+      Welcome <span class="text-red-600">{{ loggedInUser.username }}</span>
     </h1>
     <!-- <button @click="$auth.logout">Logout</button> -->
     <h1>Hrvatska Nogometna Liga</h1>
-    <div class="team">
+    <div>
       <Players team-name="Osijek">
         <Player
           player-name="Korič M."
@@ -24,7 +24,7 @@
         ></Player>
       </Players>
     </div>
-    <div class="team">
+    <div>
       <Players team-name="Rijeka">
         <Player
           player-name="Tomečak I."
@@ -43,7 +43,7 @@
         ></Player>
       </Players>
     </div>
-    <div class="team">
+    <div>
       <Players team-name="Dinamo Zagreb">
         <Player
           player-name="Oršić M."
