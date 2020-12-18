@@ -6,7 +6,7 @@
         <label for="email" class="login-form-label">Email:</label>
         <div class="relative w-full">
           <input id="email" type="email" name="email" placeholder="Enter your email"
-                 v-model="userForm.email" class="login-form-input placeholder-glitter focus:placeholder-green-500"/>
+                 v-model="userForm.email" class="login-form-input placeholder-glitter focus:placeholder-pureBlueLight"/>
           <i class="mdi mdi-close login-form-icon-clear transitioned-coloring" @click.stop="clearEmail" style="transform: translate(0,-50%)"></i>
         </div>
 
@@ -15,13 +15,13 @@
         <label for="password" class="login-form-label">Password</label>
         <div class="relative w-full">
           <input id="password" type="password" name="password" placeholder="Enter your password"
-                 v-model="userForm.password" class="login-form-input placeholder-glitter focus:placeholder-green-500"/>
+                 v-model="userForm.password" class="login-form-input placeholder-glitter focus:placeholder-pureBlueLight"/>
           <i class="mdi mdi-close login-form-icon-clear transitioned-coloring" @click.stop="clearPassword" style="transform: translate(0,-50%)"></i>
         </div>
       </section>
 
       <section class="flex justify-around items-center w-full">
-        <button class="w-32 py-2 px-4 rounded-lg text-xl font-semibold bg-white border border-green-600 text-green-600 transitioned-coloring hover:bg-green-600 hover:text-white focus:outline-none">
+        <button class="w-32 py-2 px-4 rounded-lg text-xl font-semibold bg-white border border-softRed text-softRed transitioned-coloring hover:bg-softRed hover:text-white focus:outline-none">
           <span>Log in</span>
         </button>
       </section>
@@ -91,7 +91,7 @@ export default {
   }
 
   .login-form-input:focus{
-    @apply border-green-500 outline-none text-green-500;
+    @apply border-pureBlueLight outline-none text-pureBlueLight;
   }
 
   .login-form-icon-clear{
@@ -103,7 +103,7 @@ export default {
   }
 
   .transitioned-coloring{
-    @apply transition-colors duration-300 ease-in-out;
+    @apply transition-colors duration-200 ease-in-out;
   }
 
   /* Change the white to any color ;) */

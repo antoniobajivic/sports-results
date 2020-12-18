@@ -1,64 +1,55 @@
 <template>
-  <div class="w-5/6 mx-auto">
-    <h1>
-      Welcome <span class="text-red-600">{{ loggedInUser.username }}</span>
+  <div class="w-5/6 mx-auto tracking-wider text-white">
+    <h1 class="w-full text-4xl font-bold uppercase text-center text-black py-2 px-4">
+      Welcome {{ loggedInUser.username }}
     </h1>
     <!-- <button @click="$auth.logout">Logout</button> -->
-    <h1>Hrvatska Nogometna Liga</h1>
+    <h1 class="w-full text-4xl font-bold uppercase text-black py-2 px-4">Hrvatska Nogometna Liga: </h1>
     <div>
-      <Players team-name="Osijek">
-        <Player
-          player-name="Korič M."
+      <Players team-name="Osijek" class="border-green-500">
+        <Player class="bg-green-500"
+          player-name="Škorić Mile"
           team-name="Osijek"
-          team-city="Osijek"
         ></Player>
-        <Player
-          player-name="Majstorović A."
+        <Player class="bg-green-500"
+          player-name="Majstorović Ante"
           team-name="Osijek"
-          team-city="Osijek"
         ></Player>
-        <Player
-          player-name="Vuković J."
+        <Player class="bg-green-500"
+          player-name="Vuković Josip"
           team-name="Osijek"
-          team-city="Osijek"
         ></Player>
       </Players>
     </div>
     <div>
-      <Players team-name="Rijeka">
-        <Player
-          player-name="Tomečak I."
+      <Players team-name="Rijeka" class="border-softRed">
+        <Player class="bg-softRed"
+          player-name="Tomečak Ivan"
           team-name="Rijeka"
-          team-city="Rijeka"
         ></Player>
-        <Player
-          player-name="Galović N."
+        <Player class="bg-softRed"
+          player-name="Galović Nino"
           team-name="Rijeka"
-          team-city="Rijeka"
         ></Player>
-        <Player
-          player-name="Smolčić H."
+        <Player class="bg-softRed"
+          player-name="Smolčić Hrvoje"
           team-name="Rijeka"
-          team-city="Rijeka"
         ></Player>
       </Players>
     </div>
     <div>
-      <Players team-name="Dinamo Zagreb">
-        <Player
-          player-name="Oršić M."
+      <Players team-name="Dinamo Zagreb" class="border-pureBlueLight">
+        <Player class="bg-pureBlueLight"
+          player-name="Oršić Mislav"
           team-name="Dinamo Zagreb"
-          team-city="Zagreb"
         ></Player>
-        <Player
-          player-name="Petković B."
+        <Player class="bg-pureBlueLight"
+          player-name="Petković Bruno"
           team-name="Dinamo Zagreb"
-          team-city="Zagreb"
         ></Player>
-        <Player
-          player-name="Hajrović I."
+        <Player class="bg-pureBlueLight"
+          player-name="Hajrović Izet"
           team-name="Dinamo Zagreb"
-          team-city="Zagreb"
         ></Player>
       </Players>
     </div>
