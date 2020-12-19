@@ -24,4 +24,17 @@ export const mutations = {
   },
 }
 
-export const actions = {}
+export const actions = {
+  createTeam({ commit }, payload) {
+    return new Promise((resolve, reject) => {
+      this.$axios
+        .$post('teams/create', payload)
+        .then((response) => {
+          resolve(response)
+        })
+        .catch((error) => {
+          reject(error)
+        })
+    })
+  },
+}

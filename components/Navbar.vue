@@ -1,60 +1,63 @@
 <template>
-  <nav
-    class="flex w-full items-center justify-between px-6 h-16 bg-white text-gray-700 border-b border-gray-200 z-10"
-  >
-    <aside
-      class="transform top-0 left-0 w-64 bg-white fixed h-full overflow-auto ease-in-out transition-all duration-300 z-30"
-      :class="isOpen ? 'translate-x-0' : '-translate-x-full'"
+  <nav class="w-full">
+    <div
+      class="horizontal-bar flex w-full items-center justify-between px-6 h-32 bg-pureBlue text-gray-700 border-b border-gray-200 z-10"
     >
-      <span class="text-xl font-bold text-center text-black py-2 px-4">
-        <i
-          class="mdi mdi-trash-can-outline text-3xl text-red-500 cursor-pointer hover:text-red-600"
-        ></i>
-      </span>
-    </aside>
-    <div class="flex items-center">
-      <button class="mr-2" aria-label="Open Menu" @click="drawer">
-        <svg
-          fill="none"
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          viewBox="0 0 24 24"
-          class="w-8 h-8"
-        >
-          <path d="M4 6h16M4 12h16M4 18h16"></path>
-        </svg>
-      </button>
-    </div>
-    <div class="flex items-center">
-      <div class="hidden md:block md:flex md:justify-between md:bg-transparent">
+      <div class="w2/6 flex items-center">
         <button
-          class="flex items-center p-3 font-medium mr-2 text-center bg-gray-300 rounded hover:bg-gray-400 focus:outline-none focus:bg-gray-400"
+          class="mr-2 focus:outline-none"
+          aria-label="Open Menu"
+          @click="drawer"
         >
           <svg
             fill="none"
+            stroke="white"
             stroke-linecap="round"
             stroke-linejoin="round"
             stroke-width="2"
             viewBox="0 0 24 24"
-            stroke="currentColor"
-            class="w-6 h-6 mr-2"
+            class="w-10 h-10"
           >
-            <path
-              d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-            ></path>
+            <path d="M4 6h16M4 12h16M4 18h16"></path>
           </svg>
-          <span>{{ loggedInUser }}</span>
         </button>
-        <button
-          class="flex items-center px-3 py-3 font-medium mr-2 text-center bg-orange-600 rounded text-white hover:bg-orange-700 focus:outline-none focus:bg-orange-400"
-          @click="logOut"
+      </div>
+      <div class="w2/6 flex items-center justify-center">
+        <span class="text-4xl text-center text-white text-bold"
+          >Sport results</span
         >
-          <p class="font-bold">
-            <i class="mdi mdi-arrow-left-bold-box-outline"></i> Logout
-          </p>
-        </button>
+      </div>
+      <div class="w2/6 flex items-center justify-end">
+        <div
+          class="hidden md:block md:flex md:justify-between md:bg-transparent"
+        >
+          <button
+            class="flex items-center p-3 font-medium mr-2 text-center bg-gray-300 rounded hover:bg-gray-400 focus:outline-none focus:bg-gray-400"
+          >
+            <svg
+              fill="none"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              class="w-6 h-6 mr-2"
+            >
+              <path
+                d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+              ></path>
+            </svg>
+            <span>{{ loggedInUser }}</span>
+          </button>
+          <button
+            class="flex items-center px-3 py-3 font-medium mr-2 text-center bg-orange-600 rounded text-white hover:bg-orange-700 focus:outline-none focus:bg-orange-400"
+            @click="logOut"
+          >
+            <p class="font-bold">
+              <i class="mdi mdi-arrow-left-bold-box-outline"></i> Logout
+            </p>
+          </button>
+        </div>
       </div>
     </div>
 
@@ -79,19 +82,21 @@
       </div>
     </transition>
     <aside
-      class="transform top-0 left-0 w-64 bg-white fixed h-full overflow-auto ease-in-out transition-all duration-300 z-30"
+      class="transform top-0 left-0 w-64 bg-white fixed h-full ease-in-out transition-all duration-300 z-30"
       :class="isOpen ? 'translate-x-0' : '-translate-x-full'"
     >
-      <span class="flex w-full justify-between items-center p-4 border-b">
-        <button class="flex items-center p-2" @click="isOpen = false">
+      <span class="flex w-full h-32 justify-between items-center p-4 border-b">
+        <button class="flex items-center p-2 h-28" @click="isOpen = false">
           <i class="mdi mdi-arrow-collapse-left"></i>
         </button>
         <span
-          class="flex-grow flex justify-center items-center text-2xl text-center"
+          class="flex-grow flex justify-center items-center text-4xl text-center"
           >Categories</span
         >
       </span>
-      <span class="flex items-center p-4 hover:bg-indigo-500 hover:text-white"
+      <nuxt-link
+        class="flex items-center p-4 hover:bg-indigo-500 hover:text-white"
+        to="/dashboard"
         ><span class="mr-2">
           <svg
             fill="none"
@@ -107,9 +112,11 @@
             ></path>
           </svg>
         </span>
-        <nuxt-link to="/dashboard">Home</nuxt-link></span
+        <span>Home</span></nuxt-link
       >
-      <span class="flex items-center p-4 hover:bg-indigo-500 hover:text-white"
+      <nuxt-link
+        class="flex items-center p-4 hover:bg-indigo-500 hover:text-white"
+        to="/groups"
         ><span class="mr-2">
           <svg
             fill="currentColor"
@@ -128,9 +135,11 @@
             />
           </svg>
         </span>
-        <nuxt-link to="/groups">Groups</nuxt-link></span
+        <span>Groups</span></nuxt-link
       >
-      <span class="flex items-center p-4 hover:bg-indigo-500 hover:text-white"
+      <nuxt-link
+        class="flex items-center p-4 hover:bg-indigo-500 hover:text-white"
+        to="/teams"
         ><span class="mr-2">
           <svg
             fill="currentColor"
@@ -146,9 +155,11 @@
             />
           </svg>
         </span>
-        <nuxt-link to="/teams">Teams</nuxt-link></span
+        <span>Teams</span></nuxt-link
       >
-      <span class="flex items-center p-4 hover:bg-indigo-500 hover:text-white"
+      <nuxt-link
+        class="flex items-center p-4 hover:bg-indigo-500 hover:text-white"
+        to="/player"
         ><span class="mr-2">
           <svg
             fill="currentColor"
@@ -164,7 +175,7 @@
             />
           </svg>
         </span>
-        <nuxt-link to="/player">Player</nuxt-link></span
+        <span>Player</span></nuxt-link
       >
     </aside>
   </nav>
@@ -173,35 +184,52 @@
 <script>
 import { mapGetters } from 'vuex'
 export default {
+  data() {
+    return {
+      isOpen: {
+        type: Boolean,
+        default: false,
+      },
+    }
+  },
   computed: {
     ...mapGetters(['loggedInUser']),
   },
-  data() {
-    return {
-      isOpen: false,
-    }
-  },
+  // I would rather translate whole main page than hide part of it
   watch: {
     isOpen: {
       immediate: true,
       handler(isOpen) {
         if (process.client) {
-          if (isOpen) document.body.style.setProperty('overflow', 'hidden')
-          else document.body.style.removeProperty('overflow')
+          // const layoutBody = document.querySelector('.default-container')
+          const currentPageBody = document.querySelector('.create-team')
+          const horizontalBar = document.querySelector('.horizontal-bar')
+          if (isOpen) {
+            // layoutBody.style.setProperty('transform', 'translateX(16rem)')
+            currentPageBody.style.setProperty('transform', 'translate(16rem)')
+            horizontalBar.style.setProperty('transform', 'translate(16rem)')
+          } else {
+            // layoutBody.style.removeProperty('transform')
+            currentPageBody.style.transform && horizontalBar.style.transform
+              ? currentPageBody.style.removeProperty('transform') &&
+                horizontalBar.style.removeProperty('transform')
+              : this.drawer()
+          }
         }
       },
     },
   },
   mounted() {
+    this.drawer()
     document.addEventListener('keydown', (e) => {
       if (e.keyCode === 27 && this.isOpen) this.isOpen = false
     })
   },
   methods: {
     logOut() {
-      this.$auth.logout()
       this.$store.commit('SET_USER', null)
       this.$store.commit('SET_LOGGEDIN', false)
+      this.$auth.logout()
     },
     drawer() {
       this.isOpen = !this.isOpen

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="default-container w-full h-screen flex flex-col">
     <Navbar />
     <Nuxt />
   </div>
@@ -9,14 +9,6 @@
 import Navbar from '@/components/Navbar'
 export default {
   components: { Navbar },
-  // data() {
-  //   return {
-  //     username: '',
-  //   }
-  // },
-  // mounted(){
-  //   this.setUser()
-  // },
 }
 </script>
 
@@ -27,5 +19,13 @@ export default {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+
+.default-container {
+  width: 100vw;
+  height: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 </style>

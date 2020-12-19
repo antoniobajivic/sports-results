@@ -77,14 +77,6 @@ export default {
         .catch((err) => {
           throw new Error(err)
         })
-      // this.$axios
-      //   .$post('users/login', this.userForm)
-      //   .then((res) => {
-      //     this.$router.push('/teams')
-      //   })
-      //   .catch((err) => {
-      //     throw new Error(err)
-      //   })
     },
     clearEmail() {
       if (this.userForm.email) {
