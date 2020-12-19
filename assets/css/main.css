@@ -1,2 +1,7 @@
+/* purgecss start ignore */
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+/* purgecss end ignore */
+@import 'tailwindcss/utilities';
 /*Define 1rem is now 10px instead of 16px*/
 html { font-size: 10px; }

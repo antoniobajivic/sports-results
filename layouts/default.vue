@@ -9,11 +9,11 @@
 import Navbar from '@/components/Navbar'
 export default {
   components: { Navbar },
-  data() {
-    return {
-      username: '',
-    }
-  },
+  // data() {
+  //   return {
+  //     username: '',
+  //   }
+  // },
   // mounted(){
   //   this.setUser()
   // },
