@@ -1,9 +1,9 @@
 <template>
-  <nav class="w-full">
+  <nav class="w-screen h-32">
     <div
-      class="horizontal-bar flex w-full items-center justify-between px-6 h-32 bg-pureBlue text-gray-700 border-b border-gray-200 z-10"
+      class="horizontal-bar flex w-full h-full items-center justify-between px-6 bg-pureBlue text-gray-700 border-b border-gray-200 z-10"
     >
-      <div class="w2/6 flex items-center">
+      <div class="w3/12 flex items-center justify-start">
         <button
           class="mr-2 focus:outline-none"
           aria-label="Open Menu"
@@ -22,17 +22,15 @@
           </svg>
         </button>
       </div>
-      <div class="w2/6 flex items-center justify-center">
+      <div class="w1/2 flex items-center justify-center">
         <span class="text-4xl text-center text-white text-bold"
           >Sport results</span
         >
       </div>
-      <div class="w2/6 flex items-center justify-end">
-        <div
-          class="hidden md:block md:flex md:justify-between md:bg-transparent"
-        >
+      <div class="w3/12 flex items-center justify-end">
+        <div class="md:block md:flex md:justify-between md:bg-transparent">
           <button
-            class="flex items-center p-3 font-medium mr-2 text-center bg-gray-300 rounded hover:bg-gray-400 focus:outline-none focus:bg-gray-400"
+            class="navbar-buttons-fend p-3 h-11 mr-2 bg-gray-300 hover:bg-gray-400 focus:bg-gray-400 focus:outline-none"
           >
             <svg
               fill="none"
@@ -50,11 +48,12 @@
             <span>{{ loggedInUser }}</span>
           </button>
           <button
-            class="flex items-center px-3 py-3 font-medium mr-2 text-center bg-orange-600 rounded text-white hover:bg-orange-700 focus:outline-none focus:bg-orange-400"
+            class="navbar-buttons-fend p-3 h-11 mr-2 text-white bg-orange-600 hover:bg-orange-700 focus:bg-orange-400 focus:outline-none"
             @click="logOut"
           >
             <p class="font-bold">
-              <i class="mdi mdi-arrow-left-bold-box-outline"></i> Logout
+              <i class="mdi mdi-arrow-left-bold-box-outline"></i>
+              <span>Logout</span>
             </p>
           </button>
         </div>
@@ -200,14 +199,18 @@ export default {
     isOpen: {
       immediate: true,
       handler(isOpen) {
+        console.log(process.client)
         if (process.client) {
           // const layoutBody = document.querySelector('.default-container')
-          const currentPageBody = document.querySelector('.create-team')
+          const currentPageBody = document.querySelector(
+            '.container-translatex'
+          )
           const horizontalBar = document.querySelector('.horizontal-bar')
           if (isOpen) {
             // layoutBody.style.setProperty('transform', 'translateX(16rem)')
-            currentPageBody.style.setProperty('transform', 'translate(16rem)')
-            horizontalBar.style.setProperty('transform', 'translate(16rem)')
+            currentPageBody.style.setProperty('transform', 'translateX(16rem)')
+            horizontalBar.style.setProperty('transform', 'translateX(16rem)')
+            // horizontalBar.style.setProperty('width:', 'translate(16rem)')
           } else {
             // layoutBody.style.removeProperty('transform')
             currentPageBody.style.transform && horizontalBar.style.transform
@@ -219,8 +222,10 @@ export default {
       },
     },
   },
-  mounted() {
+  created() {
     this.drawer()
+  },
+  mounted() {
     document.addEventListener('keydown', (e) => {
       if (e.keyCode === 27 && this.isOpen) this.isOpen = false
     })
@@ -237,3 +242,9 @@ export default {
   },
 }
 </script>
+
+<style>
+.navbar-buttons-fend {
+  @apply flex items-center font-medium text-center text-xl rounded;
+}
+</style>

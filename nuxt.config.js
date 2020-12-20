@@ -43,6 +43,7 @@ export default {
   },
   auth: {
     localStorage: false,
+    cookie: false,
     redirect: {
       login: '/',
       logout: '/',
@@ -51,6 +52,7 @@ export default {
     strategies: {
       local: {
         token: {
+          // property: 'jwt' OR 'token'
           required: false,
           type: false,
         },

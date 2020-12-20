@@ -2,7 +2,7 @@
   <div
     class="w-full max-w-6xl flex flex-col items-center sm:w-38rem bg-white border-2 rounded-3xl tracking-wider"
   >
-    <header class="w-full px-12 py-8 flex justify-start items-center border-b">
+    <header class="w-full p-8 flex justify-start items-center border-b">
       <p class="text-2xl text-black">
         <span>{{ title }}</span>
       </p>

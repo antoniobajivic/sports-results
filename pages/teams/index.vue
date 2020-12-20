@@ -150,6 +150,7 @@ export default {
       // Clears input
     },
     clearName() {
+      console.log(this.$route.name)
       if (this.newTeam.nameTeam) {
         this.newTeam.nameTeam = ''
       }
@@ -178,7 +179,7 @@ export default {
         console.log('Select player')
       }
     },
-    // Follows the change of selected value, if you need
+    // Follows the change of selected value, if you need to use temporary ID
     onChange() {
       console.log(this.selectedPlayerId)
       if (this.selectedPlayerId) {
