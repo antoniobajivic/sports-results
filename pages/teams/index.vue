@@ -202,55 +202,6 @@ export default {
   }
 }
 
-//  Idea was to make our custom select
-//
-//   &::after {
-//     border-bottom-left-radius: 0;
-//     border-bottom-right-radius: 0;
-//     .select-list {
-//       content: '↓';
-//       position: absolute;
-//       display: flex;
-//       flex-direction: column;
-//       justify-content: center;
-//       align-items: flex-start;
-//       padding: 0.2rem 0.5rem;
-//       z-index: 50;
-//     }
-//   }
-// }
-
-// .select-list {
-//   width: 100%;
-//   height: auto;
-//   background-color: rgba(0, 0, 0, 0.75);
-//   color: #fff;
-//   font-weight: bold;
-//   cursor: pointer;
-//   &:hover {
-//     background-color: rgba(0, 0, 0, 0.4);
-//   }
-//   &::after {
-//     .select-value {
-//       content: '<>';
-//       display: block;
-//       text-align: left;
-//       width: 100%;
-//       height: 2rem;
-//       padding: 0.375rem;
-//       border-bottom: 1px solid;
-//       font-size: 1.125rem;
-//       line-height: 1.75rem;
-//       color: #fff;
-//     }
-//   }
-// }
-
-// // Useless for now, but maybe style options?
-// .select-value {
-//   display: none;
-// }
-
 .create-team-input {
   @apply w-full rounded-lg py-3 px-6 border border-glitter bg-white text-xl tracking-wider text-gray-500;
 }

@@ -199,24 +199,30 @@ export default {
     isOpen: {
       immediate: true,
       handler(isOpen) {
-        console.log(process.client)
         if (process.client) {
           // const layoutBody = document.querySelector('.default-container')
           const currentPageBody = document.querySelector(
             '.container-translatex'
           )
           const horizontalBar = document.querySelector('.horizontal-bar')
-          if (isOpen) {
-            // layoutBody.style.setProperty('transform', 'translateX(16rem)')
-            currentPageBody.style.setProperty('transform', 'translateX(16rem)')
-            horizontalBar.style.setProperty('transform', 'translateX(16rem)')
-            // horizontalBar.style.setProperty('width:', 'translate(16rem)')
+          if (currentPageBody !== null) {
+            if (isOpen) {
+              // layoutBody.style.setProperty('transform', 'translateX(16rem)')
+              currentPageBody.style.setProperty(
+                'transform',
+                'translateX(16rem)'
+              )
+              horizontalBar.style.setProperty('transform', 'translateX(16rem)')
+              // horizontalBar.style.setProperty('width:', 'translate(16rem)')
+            } else {
+              // layoutBody.style.removeProperty('transform')
+              currentPageBody.style.transform && horizontalBar.style.transform
+                ? currentPageBody.style.removeProperty('transform') &&
+                  horizontalBar.style.removeProperty('transform')
+                : this.drawer()
+            }
           } else {
-            // layoutBody.style.removeProperty('transform')
-            currentPageBody.style.transform && horizontalBar.style.transform
-              ? currentPageBody.style.removeProperty('transform') &&
-                horizontalBar.style.removeProperty('transform')
-              : this.drawer()
+            isOpen = false
           }
         }
       },
