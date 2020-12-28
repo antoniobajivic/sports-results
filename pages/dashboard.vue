@@ -10,7 +10,7 @@
       Hrvatska Nogometna Liga:
     </h1>
     <div>
-      <Players team-name="Osijek" class="border-green-500">
+      <Team team-name="Osijek" class="border-green-500">
         <Player
           class="bg-green-500"
           player-name="Škorić Mile"
@@ -26,10 +26,10 @@
           player-name="Vuković Josip"
           team-name="Osijek"
         ></Player>
-      </Players>
+      </Team>
     </div>
     <div>
-      <Players team-name="Rijeka" class="border-softRed">
+      <Team team-name="Rijeka" class="border-softRed">
         <Player
           class="bg-softRed"
           player-name="Tomečak Ivan"
@@ -45,10 +45,10 @@
           player-name="Smolčić Hrvoje"
           team-name="Rijeka"
         ></Player>
-      </Players>
+      </Team>
     </div>
     <div>
-      <Players team-name="Dinamo Zagreb" class="border-pureBlueLight">
+      <Team team-name="Dinamo Zagreb" class="border-pureBlueLight">
         <Player
           class="bg-pureBlueLight"
           player-name="Oršić Mislav"
@@ -64,17 +64,17 @@
           player-name="Hajrović Izet"
           team-name="Dinamo Zagreb"
         ></Player>
-      </Players>
+      </Team>
     </div>
   </div>
 </template>
 
 <script>
-import Players from '@/components/Players'
+import Team from '@/components/Team'
 import Player from '@/components/Player'
 import { mapGetters } from 'vuex'
 export default {
-  components: { Players, Player },
+  components: { Team, Player },
   computed: {
     ...mapGetters(['isAuthenticated', 'loggedInUser']),
   },

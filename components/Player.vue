@@ -17,7 +17,7 @@
 <script>
 export default {
   name: 'Player',
-  props: ['playerName', 'teamName'],
+  props: ['playerName'],
 }
 </script>
 

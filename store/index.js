@@ -3,6 +3,7 @@ export const state = () => ({
   user: null,
   // token: null,
   // auth: null,
+  team: null,
 })
 
 export const getters = {
@@ -13,6 +14,9 @@ export const getters = {
   loggedInUser(state) {
     return state.user
   },
+  teamInfo(state) {
+    return state.team
+  },
 }
 
 export const mutations = {
@@ -22,6 +26,9 @@ export const mutations = {
   SET_USER(state, user) {
     state.user = user
   },
+  SET_TEAM(state, team) {
+    state.user = team
+  },
 }
 
 export const actions = {
@@ -29,6 +36,18 @@ export const actions = {
     return new Promise((resolve, reject) => {
       this.$axios
         .$post('teams/create', payload)
+        .then((response) => {
+          resolve(response)
+        })
+        .catch((error) => {
+          reject(error)
+        })
+    })
+  },
+  createPlayer({ commit }, payload) {
+    return new Promise((resolve, reject) => {
+      this.$axios
+        .$post('players/create', payload)
         .then((response) => {
           resolve(response)
         })

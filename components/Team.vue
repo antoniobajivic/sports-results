@@ -14,7 +14,7 @@
 <script>
 // import Player from '@/components/Player'
 export default {
-  name: 'Players',
+  name: 'Team',
   // components: { Player },
   props: ['teamName'],
   // data() {

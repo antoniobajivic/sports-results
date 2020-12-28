@@ -62,6 +62,18 @@ export default {
       },
     }
   },
+  methods: {
+    createPlayer() {
+      this.$store
+        .dispatch('createPlayer', this.newPlayer)
+        .then((res) => {
+          alert('You successfully created: ', res.data.data.name)
+        })
+        .catch((err) => {
+          throw new Error(err)
+        })
+    },
+  },
 }
 </script>
 
