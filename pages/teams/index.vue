@@ -1,5 +1,7 @@
 <template>
-  <div></div>
+  <div>
+    {{ teamData }}
+  </div>
 </template>
 
 <script>
@@ -7,12 +9,12 @@ export default {
   async asyncData({ app }) {
     const responseTeams = await app.$axios.$get('teams/filter')
     return {
-      teamData: responseTeams.data.data,
+      teamData: responseTeams.data,
     }
   },
   data() {
     return {
-      teamsData: [],
+      teamData: [],
     }
   },
 }

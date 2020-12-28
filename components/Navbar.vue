@@ -114,7 +114,7 @@
         <span>Home</span></nuxt-link
       >
       <nuxt-link
-        class="flex items-center p-4 hover:bg-indigo-500 hover:text-white"
+        class="flex relative items-center p-4 hover:bg-indigo-500 hover:text-white"
         to="/groups"
         ><span class="mr-2">
           <svg
@@ -134,10 +134,46 @@
             />
           </svg>
         </span>
-        <span>Groups</span></nuxt-link
+        <span>Groups</span>
+        <span class="flex-grow flex justify-end items-center">
+          <svg
+            fill="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+            class="w-6 h-6"
+            @click="toggleGroupsSubmenu"
+          >
+            <path
+              fill="currentColor"
+              d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4M7,10L12,15L17,10H7Z"
+            />
+          </svg>
+        </span>
+        <ul
+          v-if="openGroupsSubmenu"
+          class="absolute w-full h-12 absolute__coords text-black"
+        >
+          <nuxt-link to="/groups">
+            <li
+              class="flex items-center px-4 py-2 hover:bg-indigo-500 hover:text-white"
+            >
+              <span>All groups</span>
+            </li>
+          </nuxt-link>
+          <nuxt-link to="/groups/create">
+            <li
+              class="flex items-center px-4 py-2 hover:bg-indigo-500 hover:text-white"
+            >
+              <span>Create group</span>
+            </li>
+          </nuxt-link>
+        </ul></nuxt-link
       >
       <nuxt-link
-        class="flex items-center p-4 hover:bg-indigo-500 hover:text-white"
+        :class="{ transform__y: openGroupsSubmenu }"
+        class="flex relative items-center p-4 hover:bg-indigo-500 hover:text-white"
         to="/teams"
         ><span class="mr-2">
           <svg
@@ -154,9 +190,45 @@
             />
           </svg>
         </span>
-        <span>Teams</span></nuxt-link
-      >
+        <span>Teams</span>
+        <span class="flex-grow flex justify-end items-center">
+          <svg
+            fill="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+            class="w-6 h-6"
+            @click="toggleTeamsSubmenu"
+          >
+            <path
+              fill="currentColor"
+              d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4M7,10L12,15L17,10H7Z"
+            />
+          </svg>
+        </span>
+        <ul
+          v-if="openTeamsSubmenu"
+          class="absolute w-full h-12 absolute__coords text-black"
+        >
+          <nuxt-link to="/teams">
+            <li
+              class="flex items-center px-4 py-2 hover:bg-indigo-500 hover:text-white"
+            >
+              <span>All teams</span>
+            </li>
+          </nuxt-link>
+          <nuxt-link to="/teams/create">
+            <li
+              class="flex items-center px-4 py-2 hover:bg-indigo-500 hover:text-white"
+            >
+              <span>Create team</span>
+            </li>
+          </nuxt-link>
+        </ul>
+      </nuxt-link>
       <nuxt-link
+        :class="{ transform__y: openTeamsSubmenu || openGroupsSubmenu }"
         class="flex items-center p-4 hover:bg-indigo-500 hover:text-white"
         to="/player"
         ><span class="mr-2">
@@ -189,6 +261,8 @@ export default {
         type: Boolean,
         default: false,
       },
+      openTeamsSubmenu: false,
+      openGroupsSubmenu: false,
     }
   },
   computed: {
@@ -245,6 +319,18 @@ export default {
     drawer() {
       this.isOpen = !this.isOpen
     },
+    toggleGroupsSubmenu() {
+      this.openGroupsSubmenu = !this.openGroupsSubmenu
+      if (this.openGroupsSubmenu) {
+        this.openTeamsSubmenu = false
+      }
+    },
+    toggleTeamsSubmenu() {
+      this.openTeamsSubmenu = !this.openTeamsSubmenu
+      if (this.openTeamsSubmenu) {
+        this.openGroupsSubmenu = false
+      }
+    },
   },
 }
 </script>
@@ -252,5 +338,12 @@ export default {
 <style>
 .navbar-buttons-fend {
   @apply flex items-center font-medium text-center text-xl rounded;
+}
+.absolute__coords {
+  top: 3.45rem;
+  left: 0;
+}
+.transform__y {
+  @apply transform translate-y-20;
 }
 </style>
