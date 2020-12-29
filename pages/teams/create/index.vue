@@ -43,7 +43,7 @@
         <section
           class="mb-8 w-full p-4 flex flex-col justify-start items-start"
         >
-          <label class="create-team-label px-2">Select players:</label>
+          <label class="create-team-label px-4">Select players:</label>
           <div class="w-full p-4 flex justify-between items-start">
             <div class="w-2/5">
               <select

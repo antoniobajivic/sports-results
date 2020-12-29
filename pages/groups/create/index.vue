@@ -1,9 +1,111 @@
 <template>
-  <div></div>
+  <div class="create-team w-full flex-grow flex justify-around items-center">
+    <CardComponent title="Create group">
+      <form :model="newGroup" class="w-full" @submit.prevent="createNewGroup">
+        <section class="w-full p-4 mb-8">
+          <label for="player-name" class="create-group-label"
+            >Group's name:</label
+          >
+          <div class="relative w-full p-4 flex justify-start items-center">
+            <input
+              id="player-name"
+              v-model="newGroup.nameGroup"
+              type="text"
+              name="player-name"
+              placeholder="Enter new group's name"
+              class="create-group-input placeholder-glitter focus:placeholder-pureBlueLight"
+              required
+            />
+            <i
+              class="mdi mdi-close create-group-icon-clear transitioned-coloring"
+              style="transform: translate(0, -50%)"
+              @click.stop="clearName"
+            ></i>
+          </div>
+        </section>
+        <section class="w-full p-8 flex justify-start items-center">
+          <button
+            type="submit"
+            class="w-56 py-5 px-4 rounded-lg text-xl font-semibold bg-white border border-softRed text-softRed transitioned-coloring hover:bg-softRed hover:text-white focus:outline-none"
+          >
+            <span>Create</span>
+          </button>
+        </section>
+      </form>
+    </CardComponent>
+  </div>
 </template>
 
 <script>
-export default {}
+import CardComponent from '@/components/CardComponent'
+export default {
+  // async asyncData
+  //
+  components: {
+    CardComponent,
+  },
+  data() {
+    return {
+      newGroup: {
+        nameGroup: '',
+        /* Properties which every player has to have:
+        faculty: '',
+         sport: 'SPORT_NAME',
+        // OR
+        sport: {
+         category: '',
+          position: '',
+         } 
+        // We can either here (this page) set in which team each
+        // player will play or add him in page teams/index.vue 
+        // Potential problem: */
+      },
+    }
+  },
+  methods: {
+    // createGroup() {
+    // this.$store
+    //   .dispatch('createPlayer', this.newPlayer)
+    //   .then((res) => {
+    //     alert('You successfully created: ', res.data.data.name)
+    //   })
+    //   .catch((err) => {
+    //     throw new Error(err)
+    //   })
+    // },
+    clearName() {
+      if (this.newGroup.nameGroup) {
+        this.newGroup.nameGroup = ''
+      }
+    },
+  },
+}
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.create-group-label {
+  @apply block px-4 cursor-pointer font-semibold text-lg;
+}
+.create-group-input {
+  @apply w-full rounded-lg py-3 px-6 border border-glitter bg-white text-xl tracking-wider text-gray-500;
+}
+
+.create-group-icon-clear {
+  @apply absolute top-50% right-3% font-semibold text-3xl text-gray-500 cursor-pointer;
+  &:hover {
+    @applay-text-red-500;
+  }
+}
+
+.transitioned-coloring {
+  @apply transition-colors duration-200 ease-in-out;
+}
+
+input:-webkit-autofill {
+  &:hover,
+  &:focus,
+  &:active {
+    -webkit-box-shadow: 0 0 0 30px white inset !important;
+  }
+}
+</style>

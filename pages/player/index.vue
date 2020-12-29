@@ -26,7 +26,7 @@
         <section class="w-full p-8 flex justify-start items-center">
           <button
             type="submit"
-            class="w-56 py-5 px-4 rounder-lg text-xl font-semibold bg-white border border-softRed text-softRed transitioned-coloring hover:bg-softRed hover:text-white focus:outline-none"
+            class="w-56 py-5 px-4 rounded-lg text-xl font-semibold bg-white border border-softRed text-softRed transitioned-coloring hover:bg-softRed hover:text-white focus:outline-none"
           >
             <span>Create</span>
           </button>
