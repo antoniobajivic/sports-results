@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="create-team w-full flex-grow flex justify-around items-center">
     <CardComponent title="Team info">
       <section class="w-full mb-8 p-4">
         <label for="team-name">Name: </label>
@@ -10,7 +10,10 @@
       <section class="w-full mb-8 p-4">
         <label for="team-faculty">Faculty: </label>
         <div class="w-full p-4 flex justify-start items-start">
-          <span>{{ teamInfo.faculty }}</span>
+          <span
+            >{{ filterFaculties.name || 'FERIT' }},
+            {{ filterFaculties.city || 'Osijek' }}</span
+          >
         </div>
       </section>
       <section class="w-full mb-8 p-4">
@@ -34,11 +37,30 @@ export default {
   components: {
     CardComponent,
   },
-  computed: {
-    ...mapGetters(['teamInfo']),
+  async asyncData({ app }) {
+    const faculty = await app.$axios.$get('faculties/filter')
+    const facultyData = faculty.data
+    return {
+      facultyList: facultyData,
+    }
   },
   data() {
-    return {}
+    return {
+      facultyList: [],
+    }
+  },
+  computed: {
+    ...mapGetters(['teamInfo']),
+    filterFaculties() {
+      let foundFaculty = ''
+      foundFaculty = this.facultyList.filter((faculty) => {
+        return faculty.id === this.teamInfo.faculty_id
+      })
+      // console.log(foundFaculty)
+      // this.faculty.name = foundFaculty.name
+      // this.faculty.city = foundFaculty.city
+      return foundFaculty[0]
+    },
   },
 }
 </script>

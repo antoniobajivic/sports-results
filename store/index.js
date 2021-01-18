@@ -27,7 +27,7 @@ export const mutations = {
     state.user = user
   },
   SET_TEAM(state, team) {
-    state.user = team
+    state.team = team
   },
 }
 

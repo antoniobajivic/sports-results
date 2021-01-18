@@ -10,7 +10,7 @@
           <tr class="border-b">
             <th class="text-left p-3 px-5">ID</th>
             <th class="text-left p-3 px-5">Name</th>
-            <th class="text-left p-3 px-5">Faculty</th>
+            <!-- <th class="text-left p-3 px-5">Faculty</th> -->
             <th class="text-left p-3 px-5">Group</th>
             <th class="text-right p-3 px-5">Operations</th>
           </tr>
@@ -25,9 +25,11 @@
             <td class="p-3 px-5">
               <span class="bg-transparent">{{ team.name }}</span>
             </td>
-            <td class="p-3 px-5">
-              <span class="bg-transparent">{{ team.faculty }}</span>
-            </td>
+            <!-- <td class="p-3 px-5">
+              <span class="bg-transparent">{{
+                filterFaculties[index].faculty_name
+              }}</span>
+            </td> -->
             <td class="p-3 px-5">
               <span class="bg-transparent">GROUP</span>
             </td>
@@ -41,11 +43,13 @@
               <button
                 type="button"
                 class="mr-3 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline"
+                @click="goToTeamInfo(index)"
               >
                 Players</button
               ><button
                 type="button"
                 class="text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline"
+                @click="deleteTeam(index)"
               >
                 Delete
               </button>
@@ -61,14 +65,44 @@
 export default {
   async asyncData({ app }) {
     const responseTeams = await app.$axios.$get('teams/filter')
+    const responseFaculties = await app.$axios.$get('faculties/filter')
     return {
       teamData: responseTeams.data,
+      facultyList: responseFaculties.data,
     }
   },
   data() {
     return {
       teamData: [],
+      facultyList: [],
     }
+  },
+  computed: {
+    // filterFaculties() {
+    //   let foundFaculty = ''
+    //   // const newVariable = ''
+    //   this.teamData.forEach((team) => {
+    //     foundFaculty = this.facultyList.filter((faculty) => {
+    //       return faculty.id === team.faculty_id
+    //     })
+    //     const currentIndex = this.teamData.indexOf(team)
+    //     this.teamData[currentIndex].faculty_name = foundFaculty[0].name
+    //   })
+    //   return this.teamData
+    // },
+  },
+  methods: {
+    goToTeamInfo(index) {
+      this.$store.commit('SET_TEAM', this.teamData[index])
+      this.$router.push(`/teams/info/${this.teamData[index].id}`)
+    },
+    async deleteTeam(index) {
+      const teamID = this.teamData[index].id
+      const responseData = await this.$axios.$delete(`teams/delete/${teamID}`)
+      if (responseData.data) {
+        alert('Successfully deleted team')
+      }
+    },
   },
 }
 </script>

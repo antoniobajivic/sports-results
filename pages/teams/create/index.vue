@@ -7,7 +7,7 @@
           <div class="relative w-full p-4 flex justify-start items-center">
             <input
               id="team-name"
-              v-model="newTeam.nameTeam"
+              v-model="newTeam.name"
               type="text"
               name="team-name"
               placeholder="Enter your team's name"
@@ -22,22 +22,48 @@
           </div>
         </section>
         <section class="mb-8 w-full p-4">
-          <label for="input-faculty" class="create-team-label">Faculty:</label>
+          <label for="select-faculty" class="create-team-label">Faculty:</label>
           <div class="relative w-full p-4 flex justify-start items-center">
-            <input
-              id="input-faculty"
-              v-model="newTeam.faculty"
-              type="text"
-              name="input-faculty"
-              placeholder="Enter your faculty"
-              class="create-team-input placeholder-glitter focus:placeholder-pureBlueLight"
+            <select
+              id="select-faculty"
+              v-model="newTeam.faculty_id"
+              name="select-faculty"
+              placeholder="Select team's faculty"
+              class="create-team-select placeholder-glitter focus:placeholder-pureBlueLight"
               required
-            />
-            <i
-              class="mdi mdi-close create-team-icon-clear transitioned-coloring"
-              style="transform: translate(0, -50%)"
-              @click.stop="clearFaculty"
-            ></i>
+              @change="onFacultytChange"
+            >
+              <option
+                v-for="(faculty, index) in facultyList"
+                :key="index"
+                :value="faculty.id"
+              >
+                {{ faculty.name }}, {{ faculty.city }}
+              </option>
+            </select>
+          </div>
+        </section>
+        <section class="mb-8 w-full p-4">
+          <label for="select-sport" class="create-team-label">Sport:</label>
+          <div class="relative w-full p-4 flex justify-start items-center">
+            <select
+              id="select-sport"
+              v-model="newTeam.sport_id"
+              name="select-sport"
+              placeholder="Select sport"
+              class="create-team-select text-black placeholder-glitter focus:placeholder-pureBlueLight"
+              required
+              @change="onSportChange"
+            >
+              <option
+                v-for="(sport, index) in sportList"
+                :key="index"
+                :value="sport.id"
+              >
+                {{ sport.id }}. {{ sport.name }} - Min. players:
+                {{ sport.minPlayers }}
+              </option>
+            </select>
           </div>
         </section>
         <section
@@ -52,7 +78,7 @@
                 class="select-players create-team-select relative"
                 multiple
                 required
-                @change="onChange()"
+                @change="onPlayerChange()"
               >
                 <option
                   v-for="(playerId, index) in playerList"
@@ -93,43 +119,34 @@ export default {
   components: {
     CardComponent,
   },
+  async asyncData({ app }) {
+    const players = await app.$axios.$get('players/filter')
+    const faculties = await app.$axios.$get('faculties/filter')
+    const sports = await app.$axios.$get('sports/filter')
+    const currentPlayerList = players.data
+    const currentFacultiesList = faculties.data
+    const currentSportList = sports.data
+    return {
+      playerList: currentPlayerList,
+      facultyList: currentFacultiesList,
+      sportList: currentSportList,
+    }
+  },
   data() {
     return {
       // Professional (zovite me: 'Top Eleven Manager')
-      playerList: [
-        {
-          id: 1,
-          name: 'Igor',
-        },
-        {
-          id: 2,
-          name: 'Zoki',
-        },
-        {
-          id: 3,
-          name: 'Draško',
-        },
-        {
-          id: 4,
-          name: 'Johnny',
-        },
-        {
-          id: 5,
-          name: 'Milenko',
-        },
-        {
-          id: 6,
-          name: 'Šemso',
-        },
-      ],
+      playerList: [],
+      facultyList: [],
+      sportList: [],
       newTeam: {
-        nameTeam: '',
-        faculty: '',
-        selectedPlayers: [],
+        name: '',
+        faculty_id: '',
+        sport_id: '',
+        players: [],
       },
       selectedPlayerId: null,
       currentPlayerId: null,
-      maxPlayersCounter: 5,
+      minPlayersCounter: '',
       currentPlayersCounter: 0,
     }
   },
@@ -139,12 +156,12 @@ export default {
     },
     // Sending object newTeam to API
     createNewTeam() {
-      console.log(this.newTeam.selectedPlayers)
-      this.$store.dispatch
-        .commit('createTeam', this.newTeam)
+      console.log(this.newTeam.players)
+      this.$store
+        .dispatch('createTeam', this.newTeam)
         .then((res) => {
-          this.$store.dispatch('SET_TEAM', res.data.data)
-          this.$route.push(`info/${res.data.data.id}`)
+          this.$store.commit('SET_TEAM', res.data)
+          this.$router.push(`/teams/info/${res.data.id}`)
         })
         .catch((err) => {
           throw new Error(err)
@@ -152,9 +169,8 @@ export default {
     },
     // Clears input
     clearName() {
-      console.log(this.$route.name)
-      if (this.newTeam.nameTeam) {
-        this.newTeam.nameTeam = ''
+      if (this.newTeam.name) {
+        this.newTeam.name = ''
       }
     },
     // Clears input
@@ -167,15 +183,15 @@ export default {
     // Adding player on team
     addPlayerToTeam() {
       if (this.selectedPlayerId) {
-        if (this.currentPlayersCounter < this.maxPlayersCounter) {
-          this.newTeam.selectedPlayers = this.newTeam.selectedPlayers.concat(
+        if (this.currentPlayersCounter < this.minPlayersCounter) {
+          this.newTeam.players = this.newTeam.players.concat(
             this.selectedPlayerId
           )
           this.currentPlayersCounter++
           this.selectedPlayerId = ''
         } else {
           const differenceToAdd =
-            this.maxPlayersCounter - this.currentPlayersCounter
+            this.minPlayersCounter - this.currentPlayersCounter
           alert(`You need to add ${differenceToAdd} more players.`)
         }
       } else {
@@ -183,10 +199,22 @@ export default {
       }
     },
     // Follows the change of selected value, if you need to use temporary ID
-    onChange() {
+    onPlayerChange() {
       console.log(this.selectedPlayerId)
       if (this.selectedPlayerId) {
         this.currentPlayerId = this.selectedPlayerId
+      }
+    },
+    onFacultytChange() {
+      console.log(`Faculty ID: ${this.newTeam.faculty_id}`)
+    },
+    onSportChange() {
+      if (this.newTeam.sport_id) {
+        const currentSportId = this.newTeam.sport_id
+        const foundSport = this.sportList.find((sport) => {
+          return sport.id === currentSportId
+        })
+        this.minPlayersCounter = foundSport.minPlayers
       }
     },
   },
