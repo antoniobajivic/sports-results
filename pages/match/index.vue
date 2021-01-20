@@ -127,9 +127,9 @@ export default {
   data() {
     return {
       newMatch: {
-        sport_id: -1,
-        team_one: 0,
-        team_two: 0,
+        sport_id: null,
+        team_one: null,
+        team_two: null,
         date: '',
       },
     }
@@ -157,13 +157,17 @@ export default {
       console.log(`Team one ID: ${this.newMatch.team_one}`)
     },
     onTeamTwoChange() {
+      if (this.newMatch.team_one === this.newMatch.team_two) {
+        this.newMatch.team_two = 0
+        alert('Cannot select same teams')
+      }
       console.log(`Team two ID: ${this.newMatch.team_two}`)
     },
     addnewMatch() {
       this.$axios
-        .$post('faculties/create', this.newMatch)
+        .$post('matches/create', this.newMatch)
         .then((res) => {
-          alert(`Successfully added ${res.data.name}, ${res.data.city}`)
+          alert(`Successfully added match on ${res.data.date}`)
         })
         .catch((err) => {
           throw new Error(err)
