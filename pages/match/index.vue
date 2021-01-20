@@ -19,8 +19,7 @@
                 :key="index"
                 :value="sport.id"
               >
-                {{ sport.id }}. {{ sport.name }} - Min. players:
-                {{ sport.minPlayers }}
+                {{ sport.id }}. {{ sport.name }}
               </option>
             </select>
           </div>
