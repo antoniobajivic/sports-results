@@ -115,65 +115,6 @@
       >
       <nuxt-link
         class="flex relative items-center p-4 hover:bg-indigo-500 hover:text-white"
-        to="/groups"
-        ><span class="mr-2">
-          <svg
-            fill="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            viewBox="0 0 24 24"
-            class="w-6 h-6"
-          >
-            <path
-              fill="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M12,5A3.5,3.5 0 0,0 8.5,8.5A3.5,3.5 0 0,0 12,12A3.5,3.5 0 0,0 15.5,8.5A3.5,3.5 0 0,0 12,5M12,7A1.5,1.5 0 0,1 13.5,8.5A1.5,1.5 0 0,1 12,10A1.5,1.5 0 0,1 10.5,8.5A1.5,1.5 0 0,1 12,7M5.5,8A2.5,2.5 0 0,0 3,10.5C3,11.44 3.53,12.25 4.29,12.68C4.65,12.88 5.06,13 5.5,13C5.94,13 6.35,12.88 6.71,12.68C7.08,12.47 7.39,12.17 7.62,11.81C6.89,10.86 6.5,9.7 6.5,8.5C6.5,8.41 6.5,8.31 6.5,8.22C6.2,8.08 5.86,8 5.5,8M18.5,8C18.14,8 17.8,8.08 17.5,8.22C17.5,8.31 17.5,8.41 17.5,8.5C17.5,9.7 17.11,10.86 16.38,11.81C16.5,12 16.63,12.15 16.78,12.3C16.94,12.45 17.1,12.58 17.29,12.68C17.65,12.88 18.06,13 18.5,13C18.94,13 19.35,12.88 19.71,12.68C20.47,12.25 21,11.44 21,10.5A2.5,2.5 0 0,0 18.5,8M12,14C9.66,14 5,15.17 5,17.5V19H19V17.5C19,15.17 14.34,14 12,14M4.71,14.55C2.78,14.78 0,15.76 0,17.5V19H3V17.07C3,16.06 3.69,15.22 4.71,14.55M19.29,14.55C20.31,15.22 21,16.06 21,17.07V19H24V17.5C24,15.76 21.22,14.78 19.29,14.55M12,16C13.53,16 15.24,16.5 16.23,17H7.77C8.76,16.5 10.47,16 12,16Z"
-            />
-          </svg>
-        </span>
-        <span>Groups</span>
-        <span class="flex-grow flex justify-end items-center">
-          <svg
-            fill="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            viewBox="0 0 24 24"
-            class="w-6 h-6"
-            @click="toggleGroupsSubmenu"
-          >
-            <path
-              fill="currentColor"
-              d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4M7,10L12,15L17,10H7Z"
-            />
-          </svg>
-        </span>
-        <ul
-          v-if="openGroupsSubmenu"
-          class="absolute w-full h-12 absolute__coords text-black"
-        >
-          <nuxt-link to="/groups">
-            <li
-              class="flex items-center px-4 py-2 hover:bg-indigo-500 hover:text-white"
-            >
-              <span>All groups</span>
-            </li>
-          </nuxt-link>
-          <nuxt-link to="/groups/create">
-            <li
-              class="flex items-center px-4 py-2 hover:bg-indigo-500 hover:text-white"
-            >
-              <span>Create group</span>
-            </li>
-          </nuxt-link>
-        </ul></nuxt-link
-      >
-      <nuxt-link
-        :class="{ transform__y: openGroupsSubmenu }"
-        class="flex relative items-center p-4 hover:bg-indigo-500 hover:text-white"
         to="/teams"
         ><span class="mr-2">
           <svg
@@ -228,7 +169,7 @@
         </ul>
       </nuxt-link>
       <nuxt-link
-        :class="{ transform__y: openTeamsSubmenu || openGroupsSubmenu }"
+        :class="{ transform__y: openTeamsSubmenu }"
         class="flex items-center p-4 hover:bg-indigo-500 hover:text-white"
         to="/player"
         ><span class="mr-2">
@@ -248,6 +189,83 @@
         </span>
         <span>Player</span></nuxt-link
       >
+      <nuxt-link
+        :class="{ transform__y: openTeamsSubmenu }"
+        class="flex items-center p-4 hover:bg-indigo-500 hover:text-white"
+        to="/faculty"
+        ><span class="mr-2">
+          <svg
+            fill="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+            class="w-6 h-6"
+          >
+            <path
+              fill="currentColor"
+              d="M12 3L1 9L5 11.18V17.18L12 21L19 17.18V11.18L21 10.09V17H23V9L12 3M18.82 9L12 12.72L5.18 9L12 5.28L18.82 9M17 16L12 18.72L7 16V12.27L12 15L17 12.27V16Z"
+            />
+          </svg>
+        </span>
+        <span>Faculty</span></nuxt-link
+      >
+      <nuxt-link
+        :class="{ transform__y: openTeamsSubmenu }"
+        class="flex relative items-center p-4 hover:bg-indigo-500 hover:text-white"
+        to="/match"
+        ><span class="mr-2">
+          <svg
+            fill="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+            class="w-6 h-6"
+          >
+            <path
+              fill="currentColor"
+              d="M12 3L1 9L5 11.18V17.18L12 21L19 17.18V11.18L21 10.09V17H23V9L12 3M18.82 9L12 12.72L5.18 9L12 5.28L18.82 9M17 16L12 18.72L7 16V12.27L12 15L17 12.27V16Z"
+            />
+          </svg>
+        </span>
+        <span>Match</span>
+        <span class="flex-grow flex justify-end items-center">
+          <svg
+            fill="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+            class="w-6 h-6"
+            @click="toggleMatchSubmenu"
+          >
+            <path
+              fill="currentColor"
+              d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4M7,10L12,15L17,10H7Z"
+            />
+          </svg>
+        </span>
+        <ul
+          v-if="openMatchSubmenu"
+          class="absolute w-full h-12 absolute__coords text-black"
+        >
+          <nuxt-link to="/match">
+            <li
+              class="flex items-center px-4 py-2 hover:bg-indigo-500 hover:text-white"
+            >
+              <span>Create match</span>
+            </li>
+          </nuxt-link>
+          <nuxt-link to="/match/event">
+            <li
+              class="flex items-center px-4 py-2 hover:bg-indigo-500 hover:text-white"
+            >
+              <span>Add event</span>
+            </li>
+          </nuxt-link>
+        </ul>
+      </nuxt-link>
     </aside>
   </nav>
 </template>
@@ -263,6 +281,7 @@ export default {
       },
       openTeamsSubmenu: false,
       openGroupsSubmenu: false,
+      openMatchSubmenu: false,
     }
   },
   computed: {
@@ -319,16 +338,24 @@ export default {
     drawer() {
       this.isOpen = !this.isOpen
     },
-    toggleGroupsSubmenu() {
-      this.openGroupsSubmenu = !this.openGroupsSubmenu
-      if (this.openGroupsSubmenu) {
-        this.openTeamsSubmenu = false
-      }
-    },
+    // toggleGroupsSubmenu() {
+    //   this.openGroupsSubmenu = !this.openGroupsSubmenu
+    //   if (this.openGroupsSubmenu) {
+    //     this.openTeamsSubmenu = false
+    //   }
+    // },
     toggleTeamsSubmenu() {
       this.openTeamsSubmenu = !this.openTeamsSubmenu
       if (this.openTeamsSubmenu) {
-        this.openGroupsSubmenu = false
+        // this.openGroupsSubmenu = false
+        this.openMatchSubmenu = false
+      }
+    },
+    toggleMatchSubmenu() {
+      this.openMatchSubmenu = !this.openMatchSubmenu
+      if (this.openMatchSubmenu) {
+        // this.openGroupsSubmenu = false
+        this.openTeamsSubmenu = false
       }
     },
   },

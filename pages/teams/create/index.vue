@@ -134,10 +134,6 @@ export default {
   },
   data() {
     return {
-      // Professional (zovite me: 'Top Eleven Manager')
-      playerList: [],
-      facultyList: [],
-      sportList: [],
       newTeam: {
         name: '',
         faculty_id: '',

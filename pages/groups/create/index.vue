@@ -93,7 +93,7 @@ export default {
 .create-group-icon-clear {
   @apply absolute top-50% right-3% font-semibold text-3xl text-gray-500 cursor-pointer;
   &:hover {
-    @applay-text-red-500;
+    @apply-text-red-500;
   }
 }
 
