@@ -10,7 +10,7 @@
 
     <div
       ref="cardContent"
-      class="w-full flex flex-col items-center bg-white tracking-wider"
+      class="w-full flex flex-col items-center tracking-wider p-4"
     >
       <slot />
     </div>

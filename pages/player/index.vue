@@ -55,9 +55,9 @@ export default {
         sport: {
          category: '',
           position: '',
-         } 
+         }
         // We can either here (this page) set in which team each
-        // player will play or add him in page teams/index.vue 
+        // player will play or add him in page teams/index.vue
         // Potential problem: */
       },
     }
@@ -88,7 +88,7 @@ export default {
 .create-player-icon-clear {
   @apply absolute top-50% right-3% font-semibold text-3xl text-gray-500 cursor-pointer;
   &:hover {
-    @apply-text-red-500;
+    @apply text-red-500;
   }
 }
 
