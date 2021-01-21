@@ -10,7 +10,7 @@
               v-model="newMatch.sport_id"
               name="select-sport"
               placeholder="Select sport"
-              class="create-team-select text-black placeholder-glitter focus:placeholder-pureBlueLight"
+              class="create-match-select text-black placeholder-glitter focus:placeholder-pureBlueLight"
               required
               @change="onSportChange"
             >
@@ -52,13 +52,13 @@
           <label for="select-team-two" class="create-match-label"
             >Team 2:</label
           >
-          <div class="relative w-full p-4 flex justify-start items-center">
+          <div class="relative p-4 flex justify-start items-center">
             <select
               id="select-team-two"
               v-model="newMatch.team_two"
               name="select-team-two"
               placeholder="Select team 2"
-              class="create-match-select text-black placeholder-glitter focus:placeholder-pureBlueLight"
+              class="create-match-select w-full text-black placeholder-glitter focus:placeholder-pureBlueLight"
               required
               @change="onTeamTwoChange"
             >
@@ -182,6 +182,13 @@ export default {
 }
 .create-match-input {
   @apply w-full rounded-lg py-3 px-6 border border-glitter bg-white text-xl tracking-wider text-gray-500;
+}
+
+.create-match-select {
+  @apply w-full p-2 border-2 rounded-lg text-xl text-black text-center;
+  &:focus {
+    outline: none;
+  }
 }
 
 .create-match-icon-clear {

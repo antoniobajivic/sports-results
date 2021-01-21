@@ -73,12 +73,12 @@
           <div class="w-full p-4 flex justify-between items-start">
             <div class="w-2/5">
               <select
-                v-model="selectedPlayerId"
+                v-model="selectedPlayers"
                 placeholder="Players"
                 class="select-players create-team-select relative"
                 multiple
                 required
-                @change="onPlayerChange()"
+                @change="onPlayerChange(selectedPlayers)"
               >
                 <option
                   v-for="(playerId, index) in playerList"
@@ -91,7 +91,7 @@
             </div>
             <span
               class="w-2/5 text-center py-2 px-4 rounded-lg text-xl font-semibold bg-white border border-pureBlue text-pureBlue transitioned-coloring hover:bg-pureBlue hover:text-white focus:outline-none"
-              @click="addPlayerToTeam(selectedPlayerId)"
+              @click="addPlayersToTeam()"
             >
               <!-- <span>Add to team</span> -->
               Add to team
@@ -140,7 +140,7 @@ export default {
         sport_id: '',
         players: [],
       },
-      selectedPlayerId: null,
+      selectedPlayers: [],
       currentPlayerId: null,
       minPlayersCounter: '',
       currentPlayersCounter: 0,
@@ -177,28 +177,30 @@ export default {
     },
     // Back-end needs to create sport object which will have maximumPlayerCounter, depending on sport and route to that object
     // Adding player on team
-    addPlayerToTeam() {
-      if (this.selectedPlayerId) {
-        if (this.currentPlayersCounter < this.minPlayersCounter) {
+    addPlayersToTeam() {
+      if (this.selectedPlayers) {
+        if (this.currentPlayersCounter <= this.minPlayersCounter) {
           this.newTeam.players = this.newTeam.players.concat(
-            this.selectedPlayerId
+            this.selectedPlayers
           )
           this.currentPlayersCounter++
-          this.selectedPlayerId = ''
+          this.newTeam.players = this.selectedPlayers
         } else {
+          this.currentPlayersCounter++
           const differenceToAdd =
-            this.minPlayersCounter - this.currentPlayersCounter
-          alert(`You need to add ${differenceToAdd} more players.`)
+            this.currentPlayersCounter - this.minPlayersCounter
+          this.newTeam.players = this.selectedPlayers
+          alert(`You added ${differenceToAdd} more players than minimum.`)
         }
       } else {
         alert('Select player')
       }
     },
     // Follows the change of selected value, if you need to use temporary ID
-    onPlayerChange() {
-      console.log(this.selectedPlayerId)
-      if (this.selectedPlayerId) {
-        this.currentPlayerId = this.selectedPlayerId
+    onPlayerChange(player) {
+      console.log(player)
+      if (this.selectedPlayers) {
+        this.currentPlayerId = player
       }
     },
     onFacultytChange() {

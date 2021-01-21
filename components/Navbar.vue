@@ -215,7 +215,7 @@
         class="flex relative items-center p-4 hover:bg-indigo-500 hover:text-white"
         to="/match"
         ><span class="mr-2">
-          <svg
+          <!-- <svg
             fill="currentColor"
             stroke-linecap="round"
             stroke-linejoin="round"
@@ -226,6 +226,19 @@
             <path
               fill="currentColor"
               d="M12 3L1 9L5 11.18V17.18L12 21L19 17.18V11.18L21 10.09V17H23V9L12 3M18.82 9L12 12.72L5.18 9L12 5.28L18.82 9M17 16L12 18.72L7 16V12.27L12 15L17 12.27V16Z"
+            />
+          </svg> -->
+          <svg
+            fill="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+            class="w-6 h-6"
+          >
+            <path
+              fill="currentColor"
+              d="M19 19V8H5V19H19M16 1H18V3H19C20.11 3 21 3.9 21 5V19C21 20.11 20.11 21 19 21H5C3.89 21 3 20.1 3 19V5C3 3.89 3.89 3 5 3H6V1H8V3H16V1M11 9.5H13V12.5H16V14.5H13V17.5H11V14.5H8V12.5H11V9.5Z"
             />
           </svg>
         </span>
@@ -292,7 +305,6 @@
             />
             <path
               d="M20.98,8.38c0.08-2.42-0.32-4.34-0.67-4.69s-2.28-0.76-4.69-0.67L20.98,8.38z"
-            />
             />
           </svg>
         </span>
