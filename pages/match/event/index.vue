@@ -1,51 +1,145 @@
 <template>
   <div class="flex w-full h-full items-center justify-center">
-    <CardComponent title="Create Sport">
-      <form :model="newSport" class="w-full" @submit.prevent="createSport">
-        <section class="mb-8 p-4 w-full">
-          <label for="sportName" class="create-sport-label">Name:</label>
-          <div class="relative w-full">
-            <input
-              id="sportName"
-              v-model.trim="newSport.name"
-              type="text"
-              name="sportName"
-              placeholder="Enter sport name"
-              class="create-sport-input placeholder-glitter focus:placeholder-pureBlueLight"
-            />
-            <i
-              class="mdi mdi-close icon-clear transitioned-coloring"
-              style="transform: translate(0, -50%)"
-              @click.stop="clearSportName"
-            ></i>
+    <CardComponent title="Create Event">
+      <form id="eventForm" class="w-full" @submit.prevent="createEvent">
+        <section class="form-section">
+          <label for="sportSelect" class="create-sport-label">Sport:</label>
+          <div class="relative inline-block">
+            <select
+              id="sportSelect"
+              v-model.number="selectedOptions.sport_id"
+              name="sportSelect"
+              class="focus: outline-none"
+              required
+              @change="fetchMatches"
+            >
+              <option :value="null">Please select sport</option>
+              <option
+                v-for="(sport, index) in sportList"
+                :key="index"
+                :value="sport.id"
+              >
+                {{ sport.name }}
+              </option>
+            </select>
           </div>
         </section>
 
-        <section class="mb-8 p-4 w-full">
-          <label for="sportPlayerCount" class="create-sport-label"
-            >Max number of players:</label
+        <section class="form-section">
+          <label for="matchSelect" class="create-sport-label">Match:</label>
+          <div class="relative inline-block">
+            <select
+              id="matchSelect"
+              v-model.number="selectedOptions.match_id"
+              name="matchSelect"
+              class="focus: outline-none"
+              required
+              @change="setTeams()"
+            >
+              <option :value="null">Please select match</option>
+              <option
+                v-for="(match, index) in matchList"
+                :key="index"
+                :value="match.id"
+              >
+                {{
+                  match.teamOne.name +
+                  ' : ' +
+                  match.teamTwo.name +
+                  ' -> ' +
+                  match.created_at
+                }}
+              </option>
+            </select>
+          </div>
+        </section>
+
+        <section class="form-section">
+          <label for="teamSelect" class="create-sport-label">Team:</label>
+          <div class="relative inline-block">
+            <select
+              id="teamSelect"
+              v-model.number="selectedOptions.team_id"
+              name="teamSelect"
+              class="focus: outline-none"
+              required
+              @change="setPlayers"
+            >
+              <option :value="null">Please select team</option>
+              <option
+                v-for="(team, index) in teamList"
+                :key="index"
+                :value="team.id"
+              >
+                {{ team.name }}
+              </option>
+            </select>
+          </div>
+        </section>
+
+        <section class="form-section">
+          <label for="teamSelect" class="create-sport-label">Player:</label>
+          <div class="relative inline-block">
+            <select
+              id="playerSelect"
+              v-model.number="selectedOptions.player_id"
+              name="playerSelect"
+              class="focus: outline-none"
+              required
+            >
+              <option :value="null">Please select player</option>
+              <option
+                v-for="(player, index) in playerOptions"
+                :key="index"
+                :value="player.id"
+              >
+                {{ player.name }}
+              </option>
+            </select>
+          </div>
+        </section>
+
+        <section class="form-section">
+          <label for="eventType" class="create-sport-label">Event type:</label>
+          <div class="relative inline-block">
+            <select
+              id="eventType"
+              v-model.number="selectedOptions.type"
+              name="eventType"
+              class="focus: outline-none"
+              required
+            >
+              <option :value="null">Please select event type</option>
+              <option
+                v-for="(eventType, index) in eventTypeOptions"
+                :key="index"
+              >
+                {{ eventType }}
+              </option>
+            </select>
+          </div>
+        </section>
+
+        <section class="form-section">
+          <label for="eventTime" class="create-sport-label"
+            >Event time(min):</label
           >
           <input
-            id="sportPlayerCount"
-            v-model.number="newSport.minPlayers"
+            id="eventTime"
+            v-model.number="selectedOptions.time"
             type="number"
-            name="sportName"
-            min="0"
+            name="eventTime"
+            min="1"
             placeholder="Enter sport name"
             class="create-sport-input placeholder-glitter focus:placeholder-pureBlueLight"
+            required
           />
         </section>
 
         <section class="flex justify-around items-center w-full">
           <button
             type="submit"
-            :disabled="!inputsValid"
-            class="w-32 py-2 px-4 rounded-lg text-xl font-semibold bg-white border border-softRed text-softRed transitioned-coloring focus:outline-none"
-            :class="
-              inputsValid
-                ? 'hover:bg-softRed hover:text-white'
-                : 'opacity-50 cursor-default'
-            "
+            class="w-32 py-2 px-4 rounded-lg text-xl font-semibold bg-white border border-softRed text-softRed transitioned-coloring focus:outline-none hover:bg-softRed hover:text-white"
           >
             <span>Create</span>
           </button>
@@ -60,47 +154,142 @@ export default {
   components: {
     CardComponent,
   },
-  data() {
-    return {
-      newSport: {
-        name: '',
-        minPlayers: 0,
-      },
+  async asyncData({ $axios, redirect }) {
+    try {
+      const responseSports = await $axios.get('sports/filter')
+      const responsePlayers = await $axios.get('players/filter')
+      console.log(responseSports)
+      console.log(responsePlayers)
+      const sportList = responseSports.data.data
+      const playerList = responsePlayers.data.data
+
+      return {
+        sportList,
+        playerList,
+      }
+    } catch (error) {
+      console.log(error)
+      redirect('/dashboard')
     }
   },
-  computed: {
-    inputsValid() {
-      return this.newSport.name && this.newSport.minPlayers > 0
-    },
+  data() {
+    return {
+      matchList: [],
+      teamList: [],
+      playerOptions: [],
+
+      selectedOptions: {
+        sport_id: null,
+        match_id: null,
+        team_id: null,
+        player_id: null,
+        type: null,
+        time: 1,
+      },
+
+      eventTypeOptions: [
+        'goal',
+        'field_goal',
+        'three_point_field_goal',
+        'yellow_card',
+        'red_card',
+        'penalty_kick',
+        'game_end',
+      ],
+    }
   },
   methods: {
-    clearSportName() {
-      if (this.newSport.name) {
-        this.newSport.name = ''
+    async fetchMatches() {
+      if (this.selectedOptions.sport_id) {
+        try {
+          const response = await this.$axios.$get(
+            `matches/filter/${this.selectedOptions.sport_id}`
+          )
+
+          console.log(response)
+          this.matchList = response.data
+        } catch (error) {
+          alert(error)
+          this.$router.push('/dashboard')
+        }
+      } else {
+        this.resetMatchOptions()
+        this.resetTeamOptions()
+        this.resetPlayerOptions()
       }
     },
-    async createSport() {
+    setTeams() {
+      if (this.selectedOptions.match_id) {
+        this.resetTeamOptions()
+        const selectedMatch = this.matchList.find(
+          (match) => match.id === this.selectedOptions.match_id
+        )
+        console.log(selectedMatch)
+        this.teamList.push(selectedMatch.teamOne)
+        this.teamList.push(selectedMatch.teamTwo)
+      } else {
+        this.resetTeamOptions()
+        this.resetPlayerOptions()
+      }
+    },
+
+    setPlayers() {
+      if (this.selectedOptions.team_id) {
+        this.resetPlayerOptions()
+        this.playerList.forEach((player) => {
+          if (player.team_id === this.selectedOptions.team_id) {
+            this.playerOptions.push(player)
+          }
+        })
+        console.log(`team id: ${this.selectedOptions.team_id}`)
+      } else {
+        this.resetPlayerOptions()
+      }
+    },
+
+    resetMatchOptions() {
+      this.selectedOptions.match_id = null
+      this.matchList = []
+    },
+
+    resetTeamOptions() {
+      this.selectedOptions.team_id = null
+      this.teamList = []
+    },
+    resetPlayerOptions() {
+      this.selectedOptions.player_id = null
+      this.playerOptions = []
+    },
+
+    async createEvent() {
       try {
-        const response = await this.$axios.$post('sports/create', this.newSport)
-        alert(`New sport named ${response.data.name} successfully created!`)
-        // console.log(response)
+        await this.$axios.$post('events/create', {
+          match_id: this.selectedOptions.match_id,
+          team_id: this.selectedOptions.team_id,
+          player_id: this.selectedOptions.player_id,
+          type: this.selectedOptions.type,
+          time: this.selectedOptions.time * 60000,
+          interval: 1,
+        })
+        alert(`Event successfully created!`)
+        document.getElementById('eventForm').reset()
       } catch (error) {
-        if (error.message.includes('500')) {
-          alert(
-            'You cannot create sport because it already exists. Please add different sport!'
-          )
-        }
+        alert(`Error! Please try again.`)
       }
     },
   },
 }
 </script>
 <style scoped>
+.form-section {
+  @apply mb-8 p-4 w-full;
+}
+
 .create-sport-label {
-  @apply block cursor-pointer font-semibold text-lg;
+  @apply inline-block cursor-pointer font-semibold text-lg mr-12;
 }
 .create-sport-input {
-  @apply w-full rounded-lg py-3 px-6 border border-glitter bg-white text-xl tracking-wider text-gray-500;
+  @apply w-48 rounded-lg py-3 px-6 border border-glitter bg-white text-xl tracking-wider text-gray-500;
 }
 
 .create-sport-input:focus {
