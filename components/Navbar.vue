@@ -279,7 +279,7 @@
           </nuxt-link>
         </ul>
       </nuxt-link>
-      <nuxt-link
+      <!-- <nuxt-link
         :class="[
           {
             transform__y: openTeamsSubmenu || openMatchSubmenu,
@@ -309,6 +309,71 @@
           </svg>
         </span>
         <span>Sport</span>
+      </nuxt-link> -->
+      <nuxt-link
+        :class="[
+          {
+            transform__y: openTeamsSubmenu || openMatchSubmenu,
+          },
+        ]"
+        class="flex relative items-center p-4 hover:bg-indigo-500 hover:text-white"
+        to="/sport"
+        ><span class="mr-2">
+          <svg
+            fill="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+            class="w-6 h-6"
+          >
+            <path
+              d="M3.02,15.62c-0.08,2.42,0.32,4.34,0.67,4.69s2.28,0.76,4.69,0.67L3.02,15.62z"
+            />
+            <path
+              d="M13.08,3.28C10.75,3.7,8.29,4.62,6.46,6.46s-2.76,4.29-3.18,6.62l7.63,7.63c2.34-0.41,4.79-1.34,6.62-3.18 s2.76-4.29,3.18-6.62L13.08,3.28z M9.9,15.5l-1.4-1.4l5.6-5.6l1.4,1.4L9.9,15.5z"
+            />
+            <path
+              d="M20.98,8.38c0.08-2.42-0.32-4.34-0.67-4.69s-2.28-0.76-4.69-0.67L20.98,8.38z"
+            />
+          </svg>
+        </span>
+        <span>Sport</span>
+        <span class="flex-grow flex justify-end items-center">
+          <svg
+            fill="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+            class="w-6 h-6"
+            @click="toggleSportSubmenu"
+          >
+            <path
+              fill="currentColor"
+              d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4M7,10L12,15L17,10H7Z"
+            />
+          </svg>
+        </span>
+        <ul
+          v-if="openSportSubmenu"
+          class="absolute w-full h-12 absolute__coords text-black"
+        >
+          <nuxt-link to="/sport">
+            <li
+              class="flex items-center px-4 py-2 hover:bg-indigo-500 hover:text-white"
+            >
+              <span>All sports</span>
+            </li>
+          </nuxt-link>
+          <nuxt-link to="/sport/create">
+            <li
+              class="flex items-center px-4 py-2 hover:bg-indigo-500 hover:text-white"
+            >
+              <span>Create sport</span>
+            </li>
+          </nuxt-link>
+        </ul>
       </nuxt-link>
     </aside>
   </nav>
@@ -326,6 +391,7 @@ export default {
       openTeamsSubmenu: false,
       openGroupsSubmenu: false,
       openMatchSubmenu: false,
+      openSportSubmenu: false,
     }
   },
   computed: {
@@ -391,14 +457,23 @@ export default {
     toggleTeamsSubmenu() {
       this.openTeamsSubmenu = !this.openTeamsSubmenu
       if (this.openTeamsSubmenu) {
-        // this.openGroupsSubmenu = false
+        this.openSportsSubmenu = false
         this.openMatchSubmenu = false
       }
     },
     toggleMatchSubmenu() {
       this.openMatchSubmenu = !this.openMatchSubmenu
       if (this.openMatchSubmenu) {
+        this.openSportsSubmenu = false
+        this.openTeamsSubmenu = false
+      }
+    },
+    toggleSportSubmenu() {
+      this.openSportSubmenu = !this.openSportSubmenu
+      // console.log(this.openSportSubmenu)
+      if (this.openSportSubmenu) {
         // this.openGroupsSubmenu = false
+        this.openMatchSubmenu = false
         this.openTeamsSubmenu = false
       }
     },

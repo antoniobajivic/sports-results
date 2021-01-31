@@ -2,7 +2,7 @@
   <!-- component -->
   <div class="h-full text-gray-900 bg-gray-200">
     <div class="p-4 flex">
-      <h1 class="text-3xl">Teams</h1>
+      <h1 class="text-3xl">Sports</h1>
     </div>
     <div class="px-3 py-4 flex justify-center">
       <table class="w-full text-md bg-white shadow-md rounded mb-4">
@@ -11,26 +11,28 @@
             <th class="text-left p-3 px-5">ID</th>
             <th class="text-left p-3 px-5">Name</th>
             <!-- <th class="text-left p-3 px-5">Faculty</th> -->
-
+            <th class="text-left p-3 px-5">Min players</th>
             <th class="text-right p-3 px-5">Operations</th>
           </tr>
           <tr
-            v-for="(team, index) in teamData"
+            v-for="(sport, index) in sportData"
             :key="index"
             class="border-b hover:bg-orange-100 bg-gray-100"
           >
             <td class="p-3 px-5">
-              <span class="bg-transparent">{{ team.id }}</span>
+              <span class="bg-transparent">{{ sport.id }}</span>
             </td>
             <td class="p-3 px-5">
-              <span class="bg-transparent">{{ team.name }}</span>
+              <span class="bg-transparent">{{ sport.name }}</span>
+            </td>
+            <td class="p-3 px-5">
+              <span class="bg-transparent">{{ sport.minPlayers }}</span>
             </td>
             <!-- <td class="p-3 px-5">
               <span class="bg-transparent">{{
                 filterFaculties[index].faculty_name
               }}</span>
             </td> -->
-
             <!-- <td class="p-3 px-5">
                         <select value="user.role" class="bg-transparent">
                             <option value="user">user</option>
@@ -40,14 +42,8 @@
             <td class="p-3 px-5 flex justify-end">
               <button
                 type="button"
-                class="mr-3 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline"
-                @click="goToTeamInfo(index)"
-              >
-                Players</button
-              ><button
-                type="button"
                 class="text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline"
-                @click="deleteTeam(index)"
+                @click="deleteSport(index)"
               >
                 Delete
               </button>
@@ -58,51 +54,64 @@
     </div>
   </div>
 </template>
-
 <script>
 export default {
   async asyncData({ app }) {
-    const responseTeams = await app.$axios.$get('teams/filter')
-    const responseFaculties = await app.$axios.$get('faculties/filter')
+    const responseSports = await app.$axios.$get('sports/filter')
+
     return {
-      teamData: responseTeams.data,
-      facultyList: responseFaculties.data,
+      sportData: responseSports.data,
     }
   },
   data() {
     return {
-      teamData: [],
-      facultyList: [],
+      sportData: {
+        id: '',
+        name: '',
+        minPlayers: 0,
+      },
     }
   },
-  computed: {
-    // filterFaculties() {
-    //   let foundFaculty = ''
-    //   // const newVariable = ''
-    //   this.teamData.forEach((team) => {
-    //     foundFaculty = this.facultyList.filter((faculty) => {
-    //       return faculty.id === team.faculty_id
-    //     })
-    //     const currentIndex = this.teamData.indexOf(team)
-    //     this.teamData[currentIndex].faculty_name = foundFaculty[0].name
-    //   })
-    //   return this.teamData
-    // },
-  },
   methods: {
-    goToTeamInfo(index) {
-      this.$store.commit('SET_TEAM', this.teamData[index])
-      this.$router.push(`/teams/info/${this.teamData[index].id}`)
-    },
-    async deleteTeam(index) {
-      const teamID = this.teamData[index].id
-      const responseData = await this.$axios.$delete(`teams/delete/${teamID}`)
+    async deleteSport(index) {
+      const sportID = this.sportData[index].id
+      const responseData = await this.$axios.$delete(`sports/delete/${sportID}`)
       if (responseData.data) {
-        alert('Successfully deleted team')
+        alert('Successfully deleted sport')
       }
     },
   },
 }
 </script>
+<style scoped>
+.create-sport-label {
+  @apply block cursor-pointer font-semibold text-lg;
+}
+.create-sport-input {
+  @apply w-full rounded-lg py-3 px-6 border border-glitter bg-white text-xl tracking-wider text-gray-500;
+}
 
-<style lang="scss" scoped></style>
+.create-sport-input:focus {
+  @apply border-pureBlueLight outline-none text-pureBlueLight;
+}
+
+.icon-clear {
+  @apply absolute top-50% right-3% font-semibold text-3xl text-gray-500 cursor-pointer;
+}
+
+.icon-clear:hover {
+  @apply text-red-500;
+}
+
+.transitioned-coloring {
+  @apply transition-colors duration-200 ease-in-out;
+}
+
+/* Change the white to any color ;) */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px white inset !important;
+}
+</style>
