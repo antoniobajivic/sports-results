@@ -83,9 +83,13 @@ export default {
       try {
         const response = await this.$axios.$post('sports/create', this.newSport)
         alert(`New sport named ${response.data.name} successfully created!`)
-        console.log(response)
+        // console.log(response)
       } catch (error) {
-        console.log(error)
+        if (err.message.includes('500')) {
+          alert(
+            'You cannot create sport because it already exists. Please add different sport!'
+          )
+        }
       }
     },
   },

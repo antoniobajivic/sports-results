@@ -85,8 +85,12 @@ export default {
         alert(`New sport named ${response.data.name} successfully created!`)
         console.log(response)
       } catch (error) {
-        console.log(error)
-        alert(`Error: ${error}`)
+        // console.log(error)
+        if (error.message.includes('500')) {
+          alert(
+            "You cannot create team because it already exists. Please change the team's name"
+          )
+        }
       }
     },
   },

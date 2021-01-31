@@ -160,7 +160,11 @@ export default {
           this.$router.push(`/teams/info/${res.data.id}`)
         })
         .catch((err) => {
-          throw new Error(err)
+          if (err.message.includes('500')) {
+            alert(
+              "You cannot create team because it already exists. Please change the team's name"
+            )
+          }
         })
     },
     // Clears input

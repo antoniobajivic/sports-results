@@ -169,6 +169,11 @@ export default {
           alert(`Successfully added match on ${res.data.date}`)
         })
         .catch((err) => {
+          // if (err.message.includes('500')) {
+          //   alert(
+          //     "You cannot create team because it already exists. Please change the team's name"
+          //   )
+          // }
           throw new Error(err)
         })
     },
