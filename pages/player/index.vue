@@ -1,7 +1,7 @@
 <template>
   <div class="create-team w-full flex-grow flex justify-around items-center">
     <CardComponent title="Create player">
-      <form :model="newPlayer" class="w-full" @submit.prevent="createNewPlayer">
+      <form :model="newPlayer" class="w-full" @submit.prevent="createPlayer">
         <section class="w-full p-4 mb-8">
           <label for="player-name" class="create-player-label"
             >Player's name:</label
@@ -9,7 +9,7 @@
           <div class="relative w-full p-4 flex justify-start items-center">
             <input
               id="player-name"
-              v-model="newPlayer.namePlayer"
+              v-model="newPlayer.name"
               type="text"
               name="player-name"
               placeholder="Enter your player's name"
@@ -39,39 +39,35 @@
 <script>
 import CardComponent from '@/components/CardComponent'
 export default {
-  // async asyncData
-  //
   components: {
     CardComponent,
   },
   data() {
     return {
       newPlayer: {
-        namePlayer: '',
-        /* Properties which every player has to have:
-        faculty: '',
-         sport: 'SPORT_NAME',
-        // OR
-        sport: {
-         category: '',
-          position: '',
-         }
-        // We can either here (this page) set in which team each
-        // player will play or add him in page teams/index.vue
-        // Potential problem: */
+        name: '',
       },
     }
   },
   methods: {
-    createPlayer() {
-      this.$store
-        .dispatch('createPlayer', this.newPlayer)
-        .then((res) => {
-          alert('You successfully created: ', res.data.data.name)
-        })
-        .catch((err) => {
-          throw new Error(err)
-        })
+    async createPlayer() {
+      try {
+        const response = await this.$axios.$post(
+          'players/create',
+          this.newPlayer
+        )
+        alert(`${response.data.name} successfully added!`)
+        console.log(response)
+      } catch (error) {
+        console.log(error)
+        alert(`Error: ${error}`)
+      }
+    },
+
+    clearName() {
+      if (this.newPlayer.name) {
+        this.newPlayer.name = ''
+      }
     },
   },
 }

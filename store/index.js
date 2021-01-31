@@ -44,16 +44,4 @@ export const actions = {
         })
     })
   },
-  createPlayer({ commit }, payload) {
-    return new Promise((resolve, reject) => {
-      this.$axios
-        .$post('players/create', payload)
-        .then((response) => {
-          resolve(response)
-        })
-        .catch((error) => {
-          reject(error)
-        })
-    })
-  },
 }
