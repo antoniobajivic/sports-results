@@ -24,7 +24,7 @@
         <Player
           class="bg-green-500"
           player-name="Vuković Josip"
-          team-name="Osijek"
+          team-name="Osijek "
         ></Player>
       </Team>
     </div>

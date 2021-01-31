@@ -83,7 +83,11 @@ export default {
           alert(`Successfully added ${res.data.name}, ${res.data.city}`)
         })
         .catch((err) => {
-          throw new Error(err)
+          if (err.message.includes('500')) {
+            alert(
+              "You cannot create faculty because it already exists. Please change the faculty's name"
+            )
+          }
         })
     },
   },

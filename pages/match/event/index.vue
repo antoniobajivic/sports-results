@@ -85,7 +85,7 @@ export default {
         alert(`New sport named ${response.data.name} successfully created!`)
         // console.log(response)
       } catch (error) {
-        if (err.message.includes('500')) {
+        if (error.message.includes('500')) {
           alert(
             'You cannot create sport because it already exists. Please add different sport!'
           )
