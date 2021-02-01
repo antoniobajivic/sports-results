@@ -2,7 +2,7 @@
   <!-- component -->
   <div class="h-full text-gray-900 bg-gray-200">
     <div class="p-4 flex">
-      <h1 class="text-3xl">Sports</h1>
+      <h1 class="text-3xl">Matches</h1>
     </div>
     <div class="px-3 py-4 flex justify-center">
       <table class="w-full text-md bg-white shadow-md rounded mb-4">

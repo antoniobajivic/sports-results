@@ -5,6 +5,33 @@
     >
       <h1 class="text-4xl">Welcome {{ loggedInUser }} to</h1>
       <span class="span__header">Student sport results</span>
+      <div class="relative w-full p-4 flex justify-center items-center">
+        <select
+          id="select-sport"
+          v-model="sport_id"
+          name="select-sport"
+          placeholder="Select sport"
+          class="create-team-select text-black placeholder-glitter focus:placeholder-pureBlueLight"
+          required
+          @change="onSportChange"
+        >
+          <option
+            v-for="(sport, index) in sportData"
+            :key="index"
+            :value="sport.id"
+          >
+            {{ sport.id }}. {{ sport.name }} - Min. players:
+            {{ sport.minPlayers }}
+          </option>
+        </select>
+        <button
+          type="button"
+          class="text-sm bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          @click="goToSportMatches"
+        >
+          View matches
+        </button>
+      </div>
     </div>
     <!-- <button @click="$auth.logout">Logout</button>
     <h1 class="w-full text-4xl font-bold uppercase text-black py-2 px-4">
@@ -76,6 +103,12 @@
 import { mapGetters } from 'vuex'
 export default {
   // components: { Team, Player },
+  async asyncData({ app }) {
+    const responseSports = await app.$axios.$get('sports/filter')
+    return {
+      sportData: responseSports.data,
+    }
+  },
   computed: {
     ...mapGetters(['isAuthenticated', 'loggedInUser']),
   },
@@ -84,6 +117,7 @@ export default {
       user: {
         email: '',
       },
+      sport_id: null,
     }
   },
   // watch: {
@@ -101,6 +135,16 @@ export default {
     // checkLoggedIn() {
     //   console.log(this.$store.state.loggedInUser)
     // },
+    onSportChange() {
+      console.log(`Sport ID: ${this.sport_id}`)
+    },
+    goToSportMatches() {
+      if (this.sport_id) {
+        this.$router.push(`match/sport-matches/${this.sport_id}`)
+      } else {
+        alert('Select sport category please!')
+      }
+    },
   },
 }
 </script>

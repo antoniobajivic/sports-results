@@ -4,6 +4,7 @@ export const state = () => ({
   // token: null,
   // auth: null,
   team: null,
+  match: null,
 })
 
 export const getters = {
@@ -17,6 +18,9 @@ export const getters = {
   teamInfo(state) {
     return state.team
   },
+  matchInfo(state) {
+    return state.match
+  },
 }
 
 export const mutations = {
@@ -28,6 +32,9 @@ export const mutations = {
   },
   SET_TEAM(state, team) {
     state.team = team
+  },
+  SET_MATCH(state, match) {
+    state.match = match
   },
 }
 
