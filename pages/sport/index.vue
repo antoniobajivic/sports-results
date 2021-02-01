@@ -78,6 +78,7 @@ export default {
       const responseData = await this.$axios.$delete(`sports/delete/${sportID}`)
       if (responseData.data) {
         alert('Successfully deleted sport')
+        this.sportData.splice(index, 1)
       }
     },
   },

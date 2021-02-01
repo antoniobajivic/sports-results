@@ -279,37 +279,6 @@
           </nuxt-link>
         </ul>
       </nuxt-link>
-      <!-- <nuxt-link
-        :class="[
-          {
-            transform__y: openTeamsSubmenu || openMatchSubmenu,
-          },
-        ]"
-        to="/sport/create"
-        class="flex items-center p-4 hover:bg-indigo-500 hover:text-white"
-      >
-        <span class="mr-2">
-          <svg
-            fill="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            viewBox="0 0 24 24"
-            class="w-6 h-6"
-          >
-            <path
-              d="M3.02,15.62c-0.08,2.42,0.32,4.34,0.67,4.69s2.28,0.76,4.69,0.67L3.02,15.62z"
-            />
-            <path
-              d="M13.08,3.28C10.75,3.7,8.29,4.62,6.46,6.46s-2.76,4.29-3.18,6.62l7.63,7.63c2.34-0.41,4.79-1.34,6.62-3.18 s2.76-4.29,3.18-6.62L13.08,3.28z M9.9,15.5l-1.4-1.4l5.6-5.6l1.4,1.4L9.9,15.5z"
-            />
-            <path
-              d="M20.98,8.38c0.08-2.42-0.32-4.34-0.67-4.69s-2.28-0.76-4.69-0.67L20.98,8.38z"
-            />
-          </svg>
-        </span>
-        <span>Sport</span>
-      </nuxt-link> -->
       <nuxt-link
         :class="[
           {
@@ -457,14 +426,14 @@ export default {
     toggleTeamsSubmenu() {
       this.openTeamsSubmenu = !this.openTeamsSubmenu
       if (this.openTeamsSubmenu) {
-        this.openSportsSubmenu = false
         this.openMatchSubmenu = false
+        this.openSportSubmenu = false
       }
     },
     toggleMatchSubmenu() {
       this.openMatchSubmenu = !this.openMatchSubmenu
       if (this.openMatchSubmenu) {
-        this.openSportsSubmenu = false
+        this.openSportSubmenu = false
         this.openTeamsSubmenu = false
       }
     },

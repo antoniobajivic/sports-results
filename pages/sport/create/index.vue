@@ -1,7 +1,12 @@
 <template>
   <div class="flex w-full h-full items-center justify-center">
     <CardComponent title="Create Sport">
-      <form :model="newSport" class="w-full" @submit.prevent="createSport">
+      <form
+        id="sport__form"
+        :model="newSport"
+        class="w-full"
+        @submit.prevent="createSport"
+      >
         <section class="mb-8 p-4 w-full">
           <label for="sportName" class="create-sport-label">Name:</label>
           <div class="relative w-full">
@@ -83,7 +88,8 @@ export default {
       try {
         const response = await this.$axios.$post('sports/create', this.newSport)
         alert(`New sport named ${response.data.name} successfully created!`)
-        console.log(response)
+        // console.log(response)
+        document.getElementById('sport__form').reset()
       } catch (error) {
         // console.log(error)
         if (error.message.includes('500')) {

@@ -1,11 +1,12 @@
 <template>
-  <div class="w-5/6 flex flex-col mx-auto tracking-wider text-white">
-    <h1
-      class="w-full text-4xl font-bold uppercase text-center text-black py-2 px-4"
+  <div class="w-full flex flex-col flex-grow mx-auto tracking-wider text-white">
+    <div
+      class="w-full h-full flex flex-col justify-center items-center font-bold uppercase text-center text-black py-2 px-4"
     >
-      Welcome {{ loggedInUser }}
-    </h1>
-    <!-- <button @click="$auth.logout">Logout</button> -->
+      <h1 class="text-4xl">Welcome {{ loggedInUser }} to</h1>
+      <span class="span__header">Student sport results</span>
+    </div>
+    <!-- <button @click="$auth.logout">Logout</button>
     <h1 class="w-full text-4xl font-bold uppercase text-black py-2 px-4">
       Hrvatska Nogometna Liga:
     </h1>
@@ -65,16 +66,16 @@
           team-name="Dinamo Zagreb"
         ></Player>
       </Team>
-    </div>
+    </div> -->
   </div>
 </template>
 
 <script>
-import Team from '@/components/Team'
-import Player from '@/components/Player'
+// import Team from '@/components/Team'
+// import Player from '@/components/Player'
 import { mapGetters } from 'vuex'
 export default {
-  components: { Team, Player },
+  // components: { Team, Player },
   computed: {
     ...mapGetters(['isAuthenticated', 'loggedInUser']),
   },
@@ -97,11 +98,15 @@ export default {
   //   },
   // },
   methods: {
-    checkLoggedIn() {
-      console.log(this.$store.state.loggedInUser)
-    },
+    // checkLoggedIn() {
+    //   console.log(this.$store.state.loggedInUser)
+    // },
   },
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.span__header {
+  font-size: 4.5rem !important;
+}
+</style>
