@@ -47,7 +47,7 @@
                 class="text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline"
                 @click="deletePlayer(index)"
               >
-                Delete
+                Remove
               </button>
             </td>
           </tr>
@@ -96,12 +96,12 @@ export default {
   methods: {
     async deletePlayer(index) {
       const playerID = this.playersData[index].id
-      const responseData = await this.$axios.$delete(
-        `players/delete/${playerID}`
+      const responseData = await this.$axios.$patch(
+        `teams/remove-player/${playerID}`
       )
       if (responseData.data) {
         this.playersData.splice(index, 1)
-        alert('Successfully deleted player')
+        alert('Successfully removed player from team')
       }
     },
   },
