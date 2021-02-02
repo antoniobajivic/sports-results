@@ -57,7 +57,6 @@ export default {
           this.newPlayer
         )
         alert(`${response.data.name} successfully added!`)
-        console.log(response)
       } catch (error) {
         console.log(error)
         alert(`Error: ${error}`)

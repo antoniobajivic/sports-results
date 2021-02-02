@@ -31,7 +31,6 @@
               placeholder="Select team's faculty"
               class="create-team-select placeholder-glitter focus:placeholder-pureBlueLight"
               required
-              @change="onFacultytChange"
             >
               <option
                 v-for="(faculty, index) in facultyList"
@@ -152,7 +151,6 @@ export default {
     },
     // Sending object newTeam to API
     createNewTeam() {
-      console.log(this.newTeam.players)
       this.$store
         .dispatch('createTeam', this.newTeam)
         .then((res) => {
@@ -202,13 +200,9 @@ export default {
     },
     // Follows the change of selected value, if you need to use temporary ID
     onPlayerChange(player) {
-      console.log(player)
       if (this.selectedPlayers) {
         this.currentPlayerId = player
       }
-    },
-    onFacultytChange() {
-      console.log(`Faculty ID: ${this.newTeam.faculty_id}`)
     },
     onSportChange() {
       if (this.newTeam.sport_id) {

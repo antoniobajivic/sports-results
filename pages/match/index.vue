@@ -12,7 +12,6 @@
               placeholder="Select sport"
               class="create-match-select text-black placeholder-glitter focus:placeholder-pureBlueLight"
               required
-              @change="onSportChange"
             >
               <option
                 v-for="(sport, index) in sportList"
@@ -36,7 +35,6 @@
               placeholder="Select team 1"
               class="create-match-select text-black placeholder-glitter focus:placeholder-pureBlueLight"
               required
-              @change="onTeamOneChange"
             >
               <option
                 v-for="(teamOne, index) in teamOneList"
@@ -149,18 +147,11 @@ export default {
         this.newMatch.date = ''
       }
     },
-    onSportChange() {
-      console.log(`Sport ID: ${this.newMatch.sport_id}`)
-    },
-    onTeamOneChange() {
-      console.log(`Team one ID: ${this.newMatch.team_one}`)
-    },
     onTeamTwoChange() {
       if (this.newMatch.team_one === this.newMatch.team_two) {
         this.newMatch.team_two = 0
         alert('Cannot select same teams')
       }
-      console.log(`Team two ID: ${this.newMatch.team_two}`)
     },
     addnewMatch() {
       this.$axios

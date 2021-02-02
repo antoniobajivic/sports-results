@@ -56,9 +56,6 @@ export default {
       foundFaculty = this.facultyList.filter((faculty) => {
         return faculty.id === this.teamInfo.faculty_id
       })
-      // console.log(foundFaculty)
-      // this.faculty.name = foundFaculty.name
-      // this.faculty.city = foundFaculty.city
       return foundFaculty[0]
     },
   },

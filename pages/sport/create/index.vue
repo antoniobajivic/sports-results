@@ -88,10 +88,8 @@ export default {
       try {
         const response = await this.$axios.$post('sports/create', this.newSport)
         alert(`New sport named ${response.data.name} successfully created!`)
-        // console.log(response)
         document.getElementById('sport__form').reset()
       } catch (error) {
-        // console.log(error)
         if (error.message.includes('500')) {
           alert(
             "You cannot create team because it already exists. Please change the team's name"

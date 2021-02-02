@@ -439,9 +439,7 @@ export default {
     },
     toggleSportSubmenu() {
       this.openSportSubmenu = !this.openSportSubmenu
-      // console.log(this.openSportSubmenu)
       if (this.openSportSubmenu) {
-        // this.openGroupsSubmenu = false
         this.openMatchSubmenu = false
         this.openTeamsSubmenu = false
       }

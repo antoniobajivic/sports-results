@@ -158,8 +158,6 @@ export default {
     try {
       const responseSports = await $axios.get('sports/filter')
       const responsePlayers = await $axios.get('players/filter')
-      console.log(responseSports)
-      console.log(responsePlayers)
       const sportList = responseSports.data.data
       const playerList = responsePlayers.data.data
 
@@ -205,8 +203,6 @@ export default {
           const response = await this.$axios.$get(
             `matches/filter/${this.selectedOptions.sport_id}`
           )
-
-          console.log(response)
           this.matchList = response.data
         } catch (error) {
           alert(error)
@@ -224,7 +220,6 @@ export default {
         const selectedMatch = this.matchList.find(
           (match) => match.id === this.selectedOptions.match_id
         )
-        console.log(selectedMatch)
         this.teamList.push(selectedMatch.teamOne)
         this.teamList.push(selectedMatch.teamTwo)
       } else {
@@ -241,7 +236,6 @@ export default {
             this.playerOptions.push(player)
           }
         })
-        console.log(`team id: ${this.selectedOptions.team_id}`)
       } else {
         this.resetPlayerOptions()
       }

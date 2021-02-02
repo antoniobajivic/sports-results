@@ -69,8 +69,6 @@ export default {
       this.$auth
         .login({ data: this.userForm })
         .then((res) => {
-          console.log(res.data.data.user)
-          // this.$auth.setUser(res.data.data)
           this.$store.commit('SET_LOGGEDIN', true)
           this.$store.commit('SET_USER', res.data.data.user)
         })

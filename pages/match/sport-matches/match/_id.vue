@@ -9,8 +9,8 @@
         <tbody>
           <tr class="border-b">
             <th class="text-left p-3 px-5">Event ID</th>
-            <th class="text-left p-3 px-5">Team ID</th>
-            <th class="text-left p-3 px-5">Player ID</th>
+            <th class="text-left p-3 px-5">Team</th>
+            <th class="text-left p-3 px-5">Player</th>
             <th class="text-left p-3 px-5">Interval</th>
             <th class="text-left p-3 px-5">Time (min)</th>
             <!-- <th class="text-left p-3 px-5">Date</th> -->
@@ -34,10 +34,10 @@
               <span class="bg-transparent">{{ event.id }}</span>
             </td>
             <td class="p-3 px-5">
-              <span class="bg-transparent">{{ event.team_id }}</span>
+              <span class="bg-transparent">{{ event.teamInfo.name }}</span>
             </td>
             <td class="p-3 px-5">
-              <span class="bg-transparent">{{ event.player_id }}</span>
+              <span class="bg-transparent">{{ event.playerInfo.name }}</span>
             </td>
             <td class="p-3 px-5">
               <span class="bg-transparent">{{ event.interval }}</span>
@@ -81,10 +81,20 @@ export default {
   async fetch() {
     const matchID = this.$route.params.id
     const responseEvents = await this.$axios.$get(`matches/get/${matchID}`)
-    // const responseFaculties = await app.$axios.$get('faculties/filter')
+    const responsePlayers = await this.$axios.$get('players/filter')
+    const responseTeams = await this.$axios.$get('teams/filter')
     this.eventsData = responseEvents.data.events
-
-    // facultyList: responseFaculties.data,
+    this.eventsData = this.eventsData.sort((a, b) =>
+      a.time > b.time ? 1 : b.time > a.time ? -1 : 0
+    )
+    for (let i = 0; i < this.eventsData.length; i++) {
+      this.eventsData[i].playerInfo = responsePlayers.data.find((player) => {
+        return player.id === this.eventsData[i].player_id
+      })
+      this.eventsData[i].teamInfo = responseTeams.data.find((team) => {
+        return team.id === this.eventsData[i].team_id
+      })
+    }
   },
   data() {
     return {
@@ -92,12 +102,6 @@ export default {
     }
   },
   methods: {
-    // goToMatchInfo(index) {
-    //   this.$store.commit('SET_MATCH', this.matchesData[index])
-    //   this.$router.push(
-    //     `/match/sport-matches/match/${this.matchesData[index].id}`
-    //   )
-    // },
     async deleteEvent(index) {
       const eventID = this.eventsData[index].id
       const responseData = await this.$axios.$delete(`events/delete/${eventID}`)
