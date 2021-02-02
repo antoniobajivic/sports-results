@@ -1,123 +1,74 @@
 <template>
-  <div class="create-faculty w-full flex-grow flex justify-around items-center">
-    <CardComponent title="Add faculty">
-      <form :model="newFaculty" class="w-full" @submit.prevent="addNewFaculty">
-        <section class="w-full p-4 mb-8">
-          <label for="faculty-name" class="create-faculty-label">Name:</label>
-          <div class="relative w-full p-4 flex justify-start items-center">
-            <input
-              id="faculty-name"
-              v-model="newFaculty.name"
-              type="text"
-              name="faculty-name"
-              placeholder="Enter new faculty's name"
-              class="create-faculty-input placeholder-glitter focus:placeholder-pureBlueLight"
-              required
-            />
-            <i
-              class="mdi mdi-close create-faculty-icon-clear transitioned-coloring"
-              style="transform: translate(0, -50%)"
-              @click.stop="clearInput"
-            ></i>
-          </div>
-        </section>
-        <section class="w-full p-4 mb-8">
-          <label for="faculty-name" class="create-faculty-label">City:</label>
-          <div class="relative w-full p-4 flex justify-start items-center">
-            <input
-              id="faculty-name"
-              v-model="newFaculty.city"
-              type="text"
-              name="faculty-name"
-              placeholder="Enter faculty's city"
-              class="create-faculty-input placeholder-glitter focus:placeholder-pureBlueLight"
-              required
-            />
-            <i
-              class="mdi mdi-close create-faculty-icon-clear transitioned-coloring"
-              style="transform: translate(0, -50%)"
-              @click.stop="clearInput"
-            ></i>
-          </div>
-        </section>
-        <hr />
-        <section class="w-full p-8 flex justify-start items-center">
-          <button
-            type="submit"
-            class="w-56 py-5 px-4 rounded-lg text-xl font-semibold bg-white border border-softRed text-softRed transitioned-coloring hover:bg-softRed hover:text-white focus:outline-none"
+  <!-- component -->
+  <div class="h-full text-gray-900 bg-gray-200">
+    <div class="p-4 flex">
+      <h1 class="text-3xl">Faculties</h1>
+    </div>
+    <div class="px-3 py-4 flex justify-center">
+      <table class="w-full text-md bg-white shadow-md rounded mb-4">
+        <tbody>
+          <tr class="border-b">
+            <th class="text-left p-3 px-5">ID</th>
+            <th class="text-left p-3 px-5">Name</th>
+            <th class="text-left p-3 px-5">City</th>
+            <th class="text-right p-3 px-5">Operations</th>
+          </tr>
+          <tr
+            v-for="(faculty, index) in facultyList"
+            :key="index"
+            class="border-b hover:bg-orange-100 bg-gray-100"
           >
-            <span>Add</span>
-          </button>
-        </section>
-      </form>
-    </CardComponent>
+            <td class="p-3 px-5">
+              <span class="bg-transparent">{{ faculty.id }}</span>
+            </td>
+            <td class="p-3 px-5">
+              <span class="bg-transparent">{{ faculty.name }}</span>
+            </td>
+            <td class="p-3 px-5">
+              <span class="bg-transparent">{{ faculty.city }}</span>
+            </td>
+            <td class="p-3 px-5 flex justify-end">
+              <button
+                type="button"
+                class="text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline"
+                @click="deleteFaculty(index)"
+              >
+                Delete
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </template>
 
 <script>
-import CardComponent from '@/components/CardComponent'
 export default {
-  name: 'AddFaculty',
-  components: {
-    CardComponent,
+  async asyncData({ app }) {
+    const responseFaculties = await app.$axios.$get('faculties/filter')
+    return {
+      facultyList: responseFaculties.data,
+    }
   },
   data() {
     return {
-      newFaculty: {
-        name: '',
-        city: '',
-      },
+      facultyList: [],
     }
   },
   methods: {
-    // Clears input
-    clearInput() {
-      if (this.newFaculty.name) {
-        this.newFaculty.name = ''
+    async deleteFaculty(index) {
+      const facultyID = this.facultyList[index].id
+      const responseData = await this.$axios.$delete(
+        `faculties/delete/${facultyID}`
+      )
+      if (responseData.data) {
+        this.facultyList.splice(index, 1)
+        alert('Successfully removed faculty')
       }
-    },
-    addNewFaculty() {
-      this.$axios
-        .$post('faculties/create', this.newFaculty)
-        .then((res) => {
-          alert(`Successfully added ${res.data.name}, ${res.data.city}`)
-        })
-        .catch((err) => {
-          if (err.message.includes('500')) {
-            alert(
-              "You cannot create faculty because it already exists. Please change the faculty's name"
-            )
-          }
-        })
     },
   },
 }
 </script>
 
-<style lang="scss" scoped>
-.create-faculty-label {
-  @apply block px-4 cursor-pointer font-semibold text-lg;
-}
-.create-faculty-input {
-  @apply w-full rounded-lg py-3 px-6 border border-glitter bg-white text-xl tracking-wider text-gray-500;
-}
-
-.create-faculty-icon-clear {
-  @apply absolute top-50% right-3% font-semibold text-3xl text-gray-500 cursor-pointer;
-  &:hover {
-    @apply-text-red-500;
-  }
-}
-
-.transitioned-coloring {
-  @apply transition-colors duration-200 ease-in-out;
-}
-
-input:-webkit-autofill {
-  &:hover,
-  &:focus,
-  &:active {
-    -webkit-box-shadow: 0 0 0 30px white inset !important;
-  }
-}
-</style>
+<style lang="scss" scoped></style>

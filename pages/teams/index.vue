@@ -10,8 +10,6 @@
           <tr class="border-b">
             <th class="text-left p-3 px-5">ID</th>
             <th class="text-left p-3 px-5">Name</th>
-            <!-- <th class="text-left p-3 px-5">Faculty</th> -->
-
             <th class="text-right p-3 px-5">Operations</th>
           </tr>
           <tr
@@ -25,18 +23,6 @@
             <td class="p-3 px-5">
               <span class="bg-transparent">{{ team.name }}</span>
             </td>
-            <!-- <td class="p-3 px-5">
-              <span class="bg-transparent">{{
-                filterFaculties[index].faculty_name
-              }}</span>
-            </td> -->
-
-            <!-- <td class="p-3 px-5">
-                        <select value="user.role" class="bg-transparent">
-                            <option value="user">user</option>
-                            <option value="admin">admin</option>
-                        </select>
-                    </td> -->
             <td class="p-3 px-5 flex justify-end">
               <button
                 type="button"
@@ -75,20 +61,6 @@ export default {
       facultyList: [],
     }
   },
-  computed: {
-    // filterFaculties() {
-    //   let foundFaculty = ''
-    //   // const newVariable = ''
-    //   this.teamData.forEach((team) => {
-    //     foundFaculty = this.facultyList.filter((faculty) => {
-    //       return faculty.id === team.faculty_id
-    //     })
-    //     const currentIndex = this.teamData.indexOf(team)
-    //     this.teamData[currentIndex].faculty_name = foundFaculty[0].name
-    //   })
-    //   return this.teamData
-    // },
-  },
   methods: {
     goToTeamInfo(index) {
       this.$store.commit('SET_TEAM', this.teamData[index])
@@ -98,6 +70,7 @@ export default {
       const teamID = this.teamData[index].id
       const responseData = await this.$axios.$delete(`teams/delete/${teamID}`)
       if (responseData.data) {
+        this.teamData.splice(index, 1)
         alert('Successfully deleted team')
       }
     },

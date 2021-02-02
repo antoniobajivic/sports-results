@@ -1,62 +1,108 @@
 <template>
-  <div class="create-team w-full flex-grow flex justify-around items-center">
-    <CardComponent title="Team info">
-      <section class="w-full mb-8 p-4">
-        <label for="team-name">Name: </label>
-        <div class="w-full p-4 flex justify-start items-start">
-          <span>{{ teamInfo.name }}</span>
-        </div>
-      </section>
-      <section class="w-full mb-8 p-4">
-        <label for="team-faculty">Faculty: </label>
-        <div class="w-full p-4 flex justify-start items-start">
-          <span
-            >{{ filterFaculties.name || 'FERIT' }},
-            {{ filterFaculties.city || 'Osijek' }}</span
+  <!-- component -->
+  <div class="h-full text-gray-900 bg-gray-200">
+    <div class="p-4 flex flex-col">
+      <h1 class="text-3xl">Team: {{ teamInfo.name }}</h1>
+      <h1 class="text-3xl">
+        Faculty: {{ facultyInfo.name }}, {{ facultyInfo.city }}
+      </h1>
+      <h1 class="text-3xl">Players</h1>
+    </div>
+    <div class="px-3 py-4 flex justify-center">
+      <table class="w-full text-md bg-white shadow-md rounded mb-4">
+        <tbody>
+          <tr class="border-b">
+            <th class="text-left p-3 px-5">ID</th>
+            <th class="text-left p-3 px-5">Name</th>
+            <!-- <th class="text-left p-3 px-5">Faculty</th> -->
+
+            <th class="text-right p-3 px-5">Operations</th>
+          </tr>
+          <tr
+            v-for="(player, index) in playersData"
+            :key="index"
+            class="border-b hover:bg-orange-100 bg-gray-100"
           >
-        </div>
-      </section>
-      <section class="w-full mb-8 p-4">
-        <label for="team-players">Players: </label>
-        <div class="w-full p-4 flex justify-start items-center">
-          <ul>
-            <li v-for="(player, index) in teamInfo.players" :key="index">
-              <span>{{ player.name }}</span>
-            </li>
-          </ul>
-        </div>
-      </section>
-    </CardComponent>
+            <td class="p-3 px-5">
+              <span class="bg-transparent">{{ player.id }}</span>
+            </td>
+            <td class="p-3 px-5">
+              <span class="bg-transparent">{{ player.name }}</span>
+            </td>
+            <!-- <td class="p-3 px-5">
+              <span class="bg-transparent">{{
+                filterFaculties[index].faculty_name
+              }}</span>
+            </td> -->
+
+            <!-- <td class="p-3 px-5">
+                        <select value="user.role" class="bg-transparent">
+                            <option value="user">user</option>
+                            <option value="admin">admin</option>
+                        </select>
+                    </td> -->
+            <td class="p-3 px-5 flex justify-end">
+              <button
+                type="button"
+                class="text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline"
+                @click="deletePlayer(index)"
+              >
+                Delete
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-import CardComponent from '@/components/CardComponent'
+// import CardComponent from '@/components/CardComponent'
 export default {
-  components: {
-    CardComponent,
-  },
-  async asyncData({ app }) {
-    const faculty = await app.$axios.$get('faculties/filter')
-    const facultyData = faculty.data
-    return {
-      facultyList: facultyData,
-    }
+  // components: {
+  //   CardComponent,
+  // },
+  async fetch() {
+    const facultyRequest = await this.$axios.$get('faculties/filter')
+    const playersRequest = await this.$axios.$get('players/filter')
+    const teamsRequest = await this.$axios.$get('teams/filter')
+    const teamsResponse = teamsRequest.data
+    const playersResponse = playersRequest.data
+    const facultyResponse = facultyRequest.data
+    const teamID = Number(this.$route.params.id)
+    const foundTeam = teamsResponse.find((team) => {
+      return team.id === teamID
+    })
+    const foundFaculty = facultyResponse.find((faculty) => {
+      return faculty.id === foundTeam.faculty_id
+    })
+    const foundPlayers = playersResponse.filter((player) => {
+      if (player.team_id) {
+        return player.team_id === teamID
+      }
+    })
+    this.teamInfo = foundTeam
+    this.facultyInfo = foundFaculty
+    this.playersData = foundPlayers
   },
   data() {
     return {
-      facultyList: [],
+      facultyInfo: {},
+      playersData: [],
+      teamInfo: {},
     }
   },
-  computed: {
-    ...mapGetters(['teamInfo']),
-    filterFaculties() {
-      let foundFaculty = ''
-      foundFaculty = this.facultyList.filter((faculty) => {
-        return faculty.id === this.teamInfo.faculty_id
-      })
-      return foundFaculty[0]
+  methods: {
+    async deletePlayer(index) {
+      const playerID = this.playersData[index].id
+      const responseData = await this.$axios.$delete(
+        `players/delete/${playerID}`
+      )
+      if (responseData.data) {
+        this.playersData.splice(index, 1)
+        alert('Successfully deleted player')
+      }
     },
   },
 }

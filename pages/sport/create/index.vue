@@ -28,7 +28,7 @@
 
         <section class="mb-8 p-4 w-full">
           <label for="sportPlayerCount" class="create-sport-label"
-            >Max number of players:</label
+            >Minimum number of players:</label
           >
           <input
             id="sportPlayerCount"

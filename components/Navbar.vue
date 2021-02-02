@@ -29,8 +29,8 @@
       </div>
       <div class="w-1/4 flex items-center justify-end">
         <div class="md:block md:flex md:justify-between md:bg-transparent">
-          <span
-            class="navbar-buttons-fend p-3 h-11 mr-2 bg-gray-300 focus:bg-gray-400 focus:outline-none"
+          <button
+            class="navbar-buttons-fend p-3 h-11 mr-2 bg-gray-300 hover:bg-gray-400 focus:bg-gray-400 focus:outline-none"
           >
             <svg
               fill="none"
@@ -46,7 +46,7 @@
               ></path>
             </svg>
             <span>{{ loggedInUser }}</span>
-          </span>
+          </button>
           <button
             class="navbar-buttons-fend p-3 h-11 mr-2 text-white bg-orange-600 hover:bg-orange-700 focus:bg-orange-400 focus:outline-none"
             @click="logOut"
@@ -115,177 +115,6 @@
       >
       <nuxt-link
         class="flex relative items-center p-4 hover:bg-indigo-500 hover:text-white"
-        to="/teams"
-        ><span class="mr-2">
-          <svg
-            fill="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            viewBox="0 0 24 24"
-            class="w-6 h-6"
-          >
-            <path
-              fill="currentColor"
-              d="M13.07 10.41A5 5 0 0 0 13.07 4.59A3.39 3.39 0 0 1 15 4A3.5 3.5 0 0 1 15 11A3.39 3.39 0 0 1 13.07 10.41M5.5 7.5A3.5 3.5 0 1 1 9 11A3.5 3.5 0 0 1 5.5 7.5M7.5 7.5A1.5 1.5 0 1 0 9 6A1.5 1.5 0 0 0 7.5 7.5M16 17V19H2V17S2 13 9 13 16 17 16 17M14 17C13.86 16.22 12.67 15 9 15S4.07 16.31 4 17M15.95 13A5.32 5.32 0 0 1 18 17V19H22V17S22 13.37 15.94 13Z"
-            />
-          </svg>
-        </span>
-        <span>Teams</span>
-        <span class="flex-grow flex justify-end items-center">
-          <svg
-            fill="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            viewBox="0 0 24 24"
-            class="w-6 h-6"
-            @click="toggleTeamsSubmenu"
-          >
-            <path
-              fill="currentColor"
-              d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4M7,10L12,15L17,10H7Z"
-            />
-          </svg>
-        </span>
-        <ul
-          v-if="openTeamsSubmenu"
-          class="absolute w-full h-12 absolute__coords text-black"
-        >
-          <nuxt-link to="/teams">
-            <li
-              class="flex items-center px-4 py-2 hover:bg-indigo-500 hover:text-white"
-            >
-              <span>All teams</span>
-            </li>
-          </nuxt-link>
-          <nuxt-link to="/teams/create">
-            <li
-              class="flex items-center px-4 py-2 hover:bg-indigo-500 hover:text-white"
-            >
-              <span>Create team</span>
-            </li>
-          </nuxt-link>
-        </ul>
-      </nuxt-link>
-      <nuxt-link
-        :class="{ transform__y: openTeamsSubmenu }"
-        class="flex items-center p-4 hover:bg-indigo-500 hover:text-white"
-        to="/player"
-        ><span class="mr-2">
-          <svg
-            fill="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            viewBox="0 0 24 24"
-            class="w-6 h-6"
-          >
-            <path
-              fill="currentColor"
-              d="M15,4A4,4 0 0,0 11,8A4,4 0 0,0 15,12A4,4 0 0,0 19,8A4,4 0 0,0 15,4M15,5.9C16.16,5.9 17.1,6.84 17.1,8C17.1,9.16 16.16,10.1 15,10.1A2.1,2.1 0 0,1 12.9,8A2.1,2.1 0 0,1 15,5.9M4,7V10H1V12H4V15H6V12H9V10H6V7H4M15,13C12.33,13 7,14.33 7,17V20H23V17C23,14.33 17.67,13 15,13M15,14.9C17.97,14.9 21.1,16.36 21.1,17V18.1H8.9V17C8.9,16.36 12,14.9 15,14.9Z"
-            />
-          </svg>
-        </span>
-        <span>Player</span></nuxt-link
-      >
-      <nuxt-link
-        :class="{ transform__y: openTeamsSubmenu }"
-        class="flex items-center p-4 hover:bg-indigo-500 hover:text-white"
-        to="/faculty"
-        ><span class="mr-2">
-          <svg
-            fill="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            viewBox="0 0 24 24"
-            class="w-6 h-6"
-          >
-            <path
-              fill="currentColor"
-              d="M12 3L1 9L5 11.18V17.18L12 21L19 17.18V11.18L21 10.09V17H23V9L12 3M18.82 9L12 12.72L5.18 9L12 5.28L18.82 9M17 16L12 18.72L7 16V12.27L12 15L17 12.27V16Z"
-            />
-          </svg>
-        </span>
-        <span>Faculty</span></nuxt-link
-      >
-      <nuxt-link
-        :class="{ transform__y: openTeamsSubmenu }"
-        class="flex relative items-center p-4 hover:bg-indigo-500 hover:text-white"
-        to="/match"
-        ><span class="mr-2">
-          <!-- <svg
-            fill="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            viewBox="0 0 24 24"
-            class="w-6 h-6"
-          >
-            <path
-              fill="currentColor"
-              d="M12 3L1 9L5 11.18V17.18L12 21L19 17.18V11.18L21 10.09V17H23V9L12 3M18.82 9L12 12.72L5.18 9L12 5.28L18.82 9M17 16L12 18.72L7 16V12.27L12 15L17 12.27V16Z"
-            />
-          </svg> -->
-          <svg
-            fill="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            viewBox="0 0 24 24"
-            class="w-6 h-6"
-          >
-            <path
-              fill="currentColor"
-              d="M19 19V8H5V19H19M16 1H18V3H19C20.11 3 21 3.9 21 5V19C21 20.11 20.11 21 19 21H5C3.89 21 3 20.1 3 19V5C3 3.89 3.89 3 5 3H6V1H8V3H16V1M11 9.5H13V12.5H16V14.5H13V17.5H11V14.5H8V12.5H11V9.5Z"
-            />
-          </svg>
-        </span>
-        <span>Match</span>
-        <span class="flex-grow flex justify-end items-center">
-          <svg
-            fill="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            viewBox="0 0 24 24"
-            class="w-6 h-6"
-            @click="toggleMatchSubmenu"
-          >
-            <path
-              fill="currentColor"
-              d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4M7,10L12,15L17,10H7Z"
-            />
-          </svg>
-        </span>
-        <ul
-          v-if="openMatchSubmenu"
-          class="absolute w-full h-12 absolute__coords text-black"
-        >
-          <nuxt-link to="/match">
-            <li
-              class="flex items-center px-4 py-2 hover:bg-indigo-500 hover:text-white"
-            >
-              <span>Create match</span>
-            </li>
-          </nuxt-link>
-          <nuxt-link to="/match/event">
-            <li
-              class="flex items-center px-4 py-2 hover:bg-indigo-500 hover:text-white"
-            >
-              <span>Add event</span>
-            </li>
-          </nuxt-link>
-        </ul>
-      </nuxt-link>
-      <nuxt-link
-        :class="[
-          {
-            transform__y: openTeamsSubmenu || openMatchSubmenu,
-          },
-        ]"
-        class="flex relative items-center p-4 hover:bg-indigo-500 hover:text-white"
         to="/sport"
         ><span class="mr-2">
           <svg
@@ -344,6 +173,242 @@
           </nuxt-link>
         </ul>
       </nuxt-link>
+
+      <nuxt-link
+        :class="{ transform__y: openSportSubmenu }"
+        class="flex relative items-center p-4 hover:bg-indigo-500 hover:text-white"
+        to="/faculty"
+        ><span class="mr-2">
+          <svg
+            fill="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+            class="w-6 h-6"
+          >
+            <path
+              fill="currentColor"
+              d="M12 3L1 9L5 11.18V17.18L12 21L19 17.18V11.18L21 10.09V17H23V9L12 3M18.82 9L12 12.72L5.18 9L12 5.28L18.82 9M17 16L12 18.72L7 16V12.27L12 15L17 12.27V16Z"
+            />
+          </svg>
+        </span>
+        <span>Faculty</span>
+        <span class="flex-grow flex justify-end items-center">
+          <svg
+            fill="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+            class="w-6 h-6"
+            @click="toggleFacultySubmenu"
+          >
+            <path
+              fill="currentColor"
+              d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4M7,10L12,15L17,10H7Z"
+            />
+          </svg>
+        </span>
+        <ul
+          v-if="openFacultySubmenu"
+          class="absolute w-full h-12 absolute__coords text-black"
+        >
+          <nuxt-link to="/faculty">
+            <li
+              class="flex items-center px-4 py-2 hover:bg-indigo-500 hover:text-white"
+            >
+              <span>All faculties</span>
+            </li>
+          </nuxt-link>
+          <nuxt-link to="/faculty/create">
+            <li
+              class="flex items-center px-4 py-2 hover:bg-indigo-500 hover:text-white"
+            >
+              <span>Create faculty</span>
+            </li>
+          </nuxt-link>
+        </ul></nuxt-link
+      >
+      <nuxt-link
+        :class="{ transform__y: openSportSubmenu || openFacultySubmenu }"
+        class="flex relative items-center p-4 hover:bg-indigo-500 hover:text-white"
+        to="/player"
+        ><span class="mr-2">
+          <svg
+            fill="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+            class="w-6 h-6"
+          >
+            <path
+              fill="currentColor"
+              d="M15,4A4,4 0 0,0 11,8A4,4 0 0,0 15,12A4,4 0 0,0 19,8A4,4 0 0,0 15,4M15,5.9C16.16,5.9 17.1,6.84 17.1,8C17.1,9.16 16.16,10.1 15,10.1A2.1,2.1 0 0,1 12.9,8A2.1,2.1 0 0,1 15,5.9M4,7V10H1V12H4V15H6V12H9V10H6V7H4M15,13C12.33,13 7,14.33 7,17V20H23V17C23,14.33 17.67,13 15,13M15,14.9C17.97,14.9 21.1,16.36 21.1,17V18.1H8.9V17C8.9,16.36 12,14.9 15,14.9Z"
+            />
+          </svg>
+        </span>
+        <span>Player</span>
+        <span class="flex-grow flex justify-end items-center">
+          <svg
+            fill="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+            class="w-6 h-6"
+            @click="togglePlayerSubmenu"
+          >
+            <path
+              fill="currentColor"
+              d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4M7,10L12,15L17,10H7Z"
+            />
+          </svg>
+        </span>
+        <ul
+          v-if="openPlayerSubmenu"
+          class="absolute w-full h-12 absolute__coords text-black"
+        >
+          <nuxt-link to="/faculty">
+            <li
+              class="flex items-center px-4 py-2 hover:bg-indigo-500 hover:text-white"
+            >
+              <span>All players</span>
+            </li>
+          </nuxt-link>
+          <nuxt-link to="/player/create">
+            <li
+              class="flex items-center px-4 py-2 hover:bg-indigo-500 hover:text-white"
+            >
+              <span>Create player</span>
+            </li>
+          </nuxt-link>
+        </ul></nuxt-link
+      >
+      <nuxt-link
+        class="flex relative items-center p-4 hover:bg-indigo-500 hover:text-white"
+        :class="[
+          {
+            transform__y:
+              openSportSubmenu || openFacultySubmenu || openPlayerSubmenu,
+          },
+        ]"
+        to="/teams"
+        ><span class="mr-2">
+          <svg
+            fill="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+            class="w-6 h-6"
+          >
+            <path
+              fill="currentColor"
+              d="M13.07 10.41A5 5 0 0 0 13.07 4.59A3.39 3.39 0 0 1 15 4A3.5 3.5 0 0 1 15 11A3.39 3.39 0 0 1 13.07 10.41M5.5 7.5A3.5 3.5 0 1 1 9 11A3.5 3.5 0 0 1 5.5 7.5M7.5 7.5A1.5 1.5 0 1 0 9 6A1.5 1.5 0 0 0 7.5 7.5M16 17V19H2V17S2 13 9 13 16 17 16 17M14 17C13.86 16.22 12.67 15 9 15S4.07 16.31 4 17M15.95 13A5.32 5.32 0 0 1 18 17V19H22V17S22 13.37 15.94 13Z"
+            />
+          </svg>
+        </span>
+        <span>Teams</span>
+        <span class="flex-grow flex justify-end items-center">
+          <svg
+            fill="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+            class="w-6 h-6"
+            @click="toggleTeamsSubmenu"
+          >
+            <path
+              fill="currentColor"
+              d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4M7,10L12,15L17,10H7Z"
+            />
+          </svg>
+        </span>
+        <ul
+          v-if="openTeamsSubmenu"
+          class="absolute w-full h-12 absolute__coords text-black"
+        >
+          <nuxt-link to="/teams">
+            <li
+              class="flex items-center px-4 py-2 hover:bg-indigo-500 hover:text-white"
+            >
+              <span>All teams</span>
+            </li>
+          </nuxt-link>
+          <nuxt-link to="/teams/create">
+            <li
+              class="flex items-center px-4 py-2 hover:bg-indigo-500 hover:text-white"
+            >
+              <span>Create team</span>
+            </li>
+          </nuxt-link>
+        </ul>
+      </nuxt-link>
+      <nuxt-link
+        :class="{
+          transform__y:
+            openTeamsSubmenu ||
+            openFacultySubmenu ||
+            openPlayerSubmenu ||
+            openSportSubmenu,
+        }"
+        class="flex relative items-center p-4 hover:bg-indigo-500 hover:text-white"
+        to="/match"
+        ><span class="mr-2">
+          <svg
+            fill="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+            class="w-6 h-6"
+          >
+            <path
+              fill="currentColor"
+              d="M19 19V8H5V19H19M16 1H18V3H19C20.11 3 21 3.9 21 5V19C21 20.11 20.11 21 19 21H5C3.89 21 3 20.1 3 19V5C3 3.89 3.89 3 5 3H6V1H8V3H16V1M11 9.5H13V12.5H16V14.5H13V17.5H11V14.5H8V12.5H11V9.5Z"
+            />
+          </svg>
+        </span>
+        <span>Match</span>
+        <span class="flex-grow flex justify-end items-center">
+          <svg
+            fill="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+            class="w-6 h-6"
+            @click="toggleMatchSubmenu"
+          >
+            <path
+              fill="currentColor"
+              d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4M7,10L12,15L17,10H7Z"
+            />
+          </svg>
+        </span>
+        <ul
+          v-if="openMatchSubmenu"
+          class="absolute w-full h-12 absolute__coords text-black"
+        >
+          <nuxt-link to="/match">
+            <li
+              class="flex items-center px-4 py-2 hover:bg-indigo-500 hover:text-white"
+            >
+              <span>Create match</span>
+            </li>
+          </nuxt-link>
+          <nuxt-link to="/match/event">
+            <li
+              class="flex items-center px-4 py-2 hover:bg-indigo-500 hover:text-white"
+            >
+              <span>Add event</span>
+            </li>
+          </nuxt-link>
+        </ul>
+      </nuxt-link>
     </aside>
   </nav>
 </template>
@@ -358,7 +423,9 @@ export default {
         default: false,
       },
       openTeamsSubmenu: false,
+      openPlayerSubmenu: false,
       openGroupsSubmenu: false,
+      openFacultySubmenu: false,
       openMatchSubmenu: false,
       openSportSubmenu: false,
     }
@@ -372,22 +439,18 @@ export default {
       immediate: true,
       handler(isOpen) {
         if (process.client) {
-          // const layoutBody = document.querySelector('.default-container')
           const currentPageBody = document.querySelector(
             '.container-translatex'
           )
           const horizontalBar = document.querySelector('.horizontal-bar')
           if (currentPageBody !== null) {
             if (isOpen) {
-              // layoutBody.style.setProperty('transform', 'translateX(16rem)')
               currentPageBody.style.setProperty(
                 'transform',
                 'translateX(16rem)'
               )
               horizontalBar.style.setProperty('transform', 'translateX(16rem)')
-              // horizontalBar.style.setProperty('width:', 'translate(16rem)')
             } else {
-              // layoutBody.style.removeProperty('transform')
               currentPageBody.style.transform && horizontalBar.style.transform
                 ? currentPageBody.style.removeProperty('transform') &&
                   horizontalBar.style.removeProperty('transform')
@@ -417,31 +480,49 @@ export default {
     drawer() {
       this.isOpen = !this.isOpen
     },
-    // toggleGroupsSubmenu() {
-    //   this.openGroupsSubmenu = !this.openGroupsSubmenu
-    //   if (this.openGroupsSubmenu) {
-    //     this.openTeamsSubmenu = false
-    //   }
-    // },
     toggleTeamsSubmenu() {
       this.openTeamsSubmenu = !this.openTeamsSubmenu
       if (this.openTeamsSubmenu) {
+        this.openFacultySubmenu = false
         this.openMatchSubmenu = false
         this.openSportSubmenu = false
+        this.openPlayerSubmenu = false
+      }
+    },
+    togglePlayerSubmenu() {
+      this.openPlayerSubmenu = !this.openPlayerSubmenu
+      if (this.openPlayerSubmenu) {
+        this.openTeamsSubmenu = false
+        this.openFacultySubmenu = false
+        this.openMatchSubmenu = false
+        this.openSportSubmenu = false
+      }
+    },
+    toggleFacultySubmenu() {
+      this.openFacultySubmenu = !this.openFacultySubmenu
+      if (this.openFacultySubmenu) {
+        this.openTeamsSubmenu = false
+        this.openMatchSubmenu = false
+        this.openSportSubmenu = false
+        this.openPlayerSubmenu = false
       }
     },
     toggleMatchSubmenu() {
       this.openMatchSubmenu = !this.openMatchSubmenu
       if (this.openMatchSubmenu) {
+        this.openFacultySubmenu = false
         this.openSportSubmenu = false
         this.openTeamsSubmenu = false
+        this.openPlayerSubmenu = false
       }
     },
     toggleSportSubmenu() {
       this.openSportSubmenu = !this.openSportSubmenu
       if (this.openSportSubmenu) {
+        this.openFacultySubmenu = false
         this.openMatchSubmenu = false
         this.openTeamsSubmenu = false
+        this.openPlayerSubmenu = false
       }
     },
   },
