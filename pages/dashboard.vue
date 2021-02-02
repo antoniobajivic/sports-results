@@ -5,13 +5,16 @@
     >
       <h1 class="text-4xl">Welcome {{ loggedInUser }} to</h1>
       <span class="span__header">Student sport results</span>
-      <div class="relative w-full p-4 flex justify-center items-center">
+      <div class="relative w-80 p-4 flex justify-center items-center">
+        <label for="select-sport" class="mr-2"
+          >Select sport to view matches:</label
+        >
         <select
           id="select-sport"
           v-model="sport_id"
           name="select-sport"
           placeholder="Select sport"
-          class="create-team-select text-black placeholder-glitter focus:placeholder-pureBlueLight"
+          class="create-team-select text-black placeholder-glitter focus:placeholder-pureBlueLight mr-2"
           required
         >
           <option
@@ -19,16 +22,16 @@
             :key="index"
             :value="sport.id"
           >
-            {{ sport.id }}. {{ sport.name }} - Min. players:
+            {{ sport.name }} - Min. players:
             {{ sport.minPlayers }}
           </option>
         </select>
         <button
           type="button"
-          class="text-sm bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          class="text-lg h-full bg-pureBlue hover:bg-blue-700 text-white py-2 px-4 rounded focus:outline-none focus:shadow-outline"
           @click="goToSportMatches"
         >
-          View matches
+          View
         </button>
       </div>
     </div>
@@ -68,6 +71,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.create-team-select {
+  @apply w-full p-2 border-2 rounded-lg text-xl text-black text-center;
+  &:focus {
+    outline: none;
+  }
+}
 .span__header {
   font-size: 4.5rem !important;
 }

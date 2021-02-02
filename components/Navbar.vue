@@ -29,8 +29,8 @@
       </div>
       <div class="w-1/4 flex items-center justify-end">
         <div class="md:block md:flex md:justify-between md:bg-transparent">
-          <button
-            class="navbar-buttons-fend p-3 h-11 mr-2 bg-gray-300 hover:bg-gray-400 focus:bg-gray-400 focus:outline-none"
+          <span
+            class="navbar-buttons-fend p-3 h-11 mr-2 bg-gray-300 focus:bg-gray-400 focus:outline-none"
           >
             <svg
               fill="none"
@@ -46,7 +46,7 @@
               ></path>
             </svg>
             <span>{{ loggedInUser }}</span>
-          </button>
+          </span>
           <button
             class="navbar-buttons-fend p-3 h-11 mr-2 text-white bg-orange-600 hover:bg-orange-700 focus:bg-orange-400 focus:outline-none"
             @click="logOut"
